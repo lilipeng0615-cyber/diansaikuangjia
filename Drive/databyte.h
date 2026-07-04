@@ -4,183 +4,183 @@
 #include "ti_msp_dl_config.h"
 #include <stdint.h>
 
-/* Basic integer aliases. */
-typedef signed char int8;            /* signed 8-bit integer */
-typedef unsigned char _u8;           /* unsigned 8-bit integer, legacy alias */
-typedef unsigned char u8;            /* unsigned 8-bit integer */
-typedef unsigned char uint8;         /* unsigned 8-bit integer */
-typedef unsigned char byte;          /* byte data */
+/* 基础整数类型别名 */
+typedef signed char int8;            /* 有符号 8 位整数 */
+typedef unsigned char _u8;           /* 无符号 8 位整数，兼容旧代码别名 */
+typedef unsigned char u8;            /* 无符号 8 位整数 */
+typedef unsigned char uint8;         /* 无符号 8 位整数 */
+typedef unsigned char byte;          /* 字节数据 */
 
-typedef signed short int int16;      /* signed 16-bit integer */
-typedef unsigned short int uint16;   /* unsigned 16-bit integer */
-typedef unsigned short int _u16;     /* unsigned 16-bit integer, legacy alias */
-typedef unsigned short int u16;      /* unsigned 16-bit integer */
+typedef signed short int int16;      /* 有符号 16 位整数 */
+typedef unsigned short int uint16;   /* 无符号 16 位整数 */
+typedef unsigned short int _u16;     /* 无符号 16 位整数，兼容旧代码别名 */
+typedef unsigned short int u16;      /* 无符号 16 位整数 */
 
-typedef unsigned long int _u32;      /* unsigned 32-bit integer, legacy alias */
-typedef unsigned long int u32;       /* unsigned 32-bit integer */
-typedef float fp32;                  /* 32-bit float */
-typedef double fp64;                 /* 64-bit float */
+typedef unsigned long int _u32;      /* 无符号 32 位整数，兼容旧代码别名 */
+typedef unsigned long int u32;       /* 无符号 32 位整数 */
+typedef float fp32;                  /* 32 位浮点数 */
+typedef double fp64;                 /* 64 位浮点数 */
 
-#define ABS(X) (((X) > 0) ? (X) : -(X))          /* absolute value */
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))      /* max value */
-#define MIN(a, b) (((a) > (b)) ? (b) : (a))      /* min value */
+#define ABS(X) (((X) > 0) ? (X) : -(X))          /* 取绝对值 */
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))      /* 取较大值 */
+#define MIN(a, b) (((a) > (b)) ? (b) : (a))      /* 取较小值 */
 
-#define SPEED_RECORD_NUM 5                       /* motor speed history length */
-#define RING_BUF_SIZE 1024                       /* UART receive ring buffer size */
-#define FRAME_HEAD1 0xAA                         /* UART frame header byte 1 */
-#define FRAME_HEAD2 0x55                         /* UART frame header byte 2 */
-#define FRAME_TAIL1 0xBB                         /* UART frame tail byte 1 */
-#define FRAME_TAIL2 0xCC                         /* UART frame tail byte 2 */
-#define MAX_DATA_LEN 256                         /* max UART frame payload length */
+#define SPEED_RECORD_NUM 5                       /* 电机速度历史记录长度 */
+#define RING_BUF_SIZE 1024                       /* 串口接收环形缓冲区大小 */
+#define FRAME_HEAD1 0xAA                         /* 串口数据帧帧头字节 1 */
+#define FRAME_HEAD2 0x55                         /* 串口数据帧帧头字节 2 */
+#define FRAME_TAIL1 0xBB                         /* 串口数据帧帧尾字节 1 */
+#define FRAME_TAIL2 0xCC                         /* 串口数据帧帧尾字节 2 */
+#define MAX_DATA_LEN 256                         /* 串口数据帧最大有效数据长度 */
 
-/* Encoder decoded feedback data. */
+/* 编码器解析后的反馈数据 */
 typedef struct {
-    int v_int;                                   /* raw speed value from encoder protocol */
-    int t_int;                                   /* raw torque/duty value from encoder protocol */
-    int EncoderCount;                            /* accumulated encoder pulse count */
-    float pos;                                   /* converted position, rad */
-    float vel;                                   /* converted velocity, rad/s */
-    float V;                                     /* feedback voltage or parsed voltage value */
-    float X;                                     /* reserved position/displacement value */
+    int v_int;                                   /* 编码器协议中的原始速度值 */
+    int t_int;                                   /* 编码器协议中的原始力矩或占空比值 */
+    int EncoderCount;                            /* 编码器累计脉冲计数 */
+    float pos;                                   /* 换算后的位置，单位 rad */
+    float vel;                                   /* 换算后的速度，单位 rad/s */
+    float V;                                     /* 反馈电压或解析得到的电压值 */
+    float X;                                     /* 预留的位置或位移数据 */
 } Encoder_t;
 
-/* PID controller parameters and runtime state. */
+/* PID 控制器参数和运行状态 */
 typedef struct {
-    uint8_t mode;                                /* PID mode: position or delta */
-    fp32 Kp;                                     /* proportional gain */
-    fp32 Ki;                                     /* integral gain */
-    fp32 Kd;                                     /* derivative gain */
-    fp32 max_out;                                /* total output limit */
-    fp32 max_iout;                               /* integral output limit */
-    fp32 set;                                    /* target value */
-    fp32 fdb;                                    /* feedback value */
-    fp32 out;                                    /* total PID output */
-    fp32 Pout;                                   /* proportional output */
-    fp32 Iout;                                   /* integral output */
-    fp32 Dout;                                   /* derivative output */
-    fp32 Dbuf[3];                                /* derivative cache: current, last, previous */
-    fp32 error[3];                               /* error cache: current, last, previous */
+    uint8_t mode;                                /* PID 模式：位置式或增量式 */
+    fp32 Kp;                                     /* 比例系数 */
+    fp32 Ki;                                     /* 积分系数 */
+    fp32 Kd;                                     /* 微分系数 */
+    fp32 max_out;                                /* PID 总输出限幅 */
+    fp32 max_iout;                               /* 积分项输出限幅 */
+    fp32 set;                                    /* 目标值 */
+    fp32 fdb;                                    /* 反馈值 */
+    fp32 out;                                    /* PID 总输出 */
+    fp32 Pout;                                   /* 比例项输出 */
+    fp32 Iout;                                   /* 积分项输出 */
+    fp32 Dout;                                   /* 微分项输出 */
+    fp32 Dbuf[3];                                /* 微分缓存：当前值、上一次、上上次 */
+    fp32 error[3];                               /* 误差缓存：当前误差、上一次、上上次 */
 } Pid_t;
 
-/* Motor enable state. */
+/* 电机使能状态 */
 typedef enum {
-    Enable = 1,                                  /* module or motor enabled */
-    Disable = 0,                                 /* module or motor disabled */
+    Enable = 1,                                  /* 模块或电机使能 */
+    Disable = 0,                                 /* 模块或电机失能 */
 } Motor_State;
 
-/* Single motor encoder statistic state. */
+/* 单个电机的编码器统计状态 */
 typedef struct {
-    uint8_t dirction;                            /* encoder direction flag, keeps original spelling */
-    int32_t countnum;                            /* current encoder count */
-    int32_t lastcount;                           /* previous encoder count */
-    float speed;                                 /* calculated speed */
-    float speed_Record[SPEED_RECORD_NUM];        /* speed moving-average buffer */
+    uint8_t dirction;                            /* 编码器方向标志，保留原字段拼写 */
+    int32_t countnum;                            /* 当前编码器计数 */
+    int32_t lastcount;                           /* 上一次编码器计数 */
+    float speed;                                 /* 计算得到的速度 */
+    float speed_Record[SPEED_RECORD_NUM];        /* 速度滑动平均缓存 */
 } encoder_t;
 
-/* Motor control state. */
+/* 电机控制状态 */
 typedef struct {
-    uint8_t dir;                                 /* motor direction */
-    float pwmDuty;                               /* PWM duty ratio */
-    float speed;                                 /* target or current speed */
-    float encoder_speed;                         /* encoder feedback speed */
-    float pos;                                   /* motor position feedback or target */
-    encoder_t encoder;                           /* encoder state for this motor */
-    float error;                                 /* current control error */
-    float lasterror;                             /* previous control error */
-    float integral;                              /* integrated control error */
+    uint8_t dir;                                 /* 电机转动方向 */
+    float pwmDuty;                               /* PWM 占空比 */
+    float speed;                                 /* 目标速度或当前速度 */
+    float encoder_speed;                         /* 编码器反馈速度 */
+    float pos;                                   /* 电机位置反馈或位置目标 */
+    encoder_t encoder;                           /* 该电机对应的编码器状态 */
+    float error;                                 /* 当前控制误差 */
+    float lasterror;                             /* 上一次控制误差 */
+    float integral;                              /* 误差积分值 */
 } motor_t;
 
-/* System time sample state. */
+/* 系统采样时间状态 */
 typedef struct {
-    volatile float last_time;                    /* previous sample time, ms */
-    volatile float current_time;                 /* current sample time, ms */
-    volatile float period;                       /* sample interval, ms */
-    volatile uint16_t period_int;                /* rounded interval, ms */
+    volatile float last_time;                    /* 上一次采样时间，单位 ms */
+    volatile float current_time;                 /* 当前采样时间，单位 ms */
+    volatile float period;                       /* 采样周期，单位 ms */
+    volatile uint16_t period_int;                /* 取整后的采样周期，单位 ms */
 } systime;
 
-/* UART receive ring queue. */
+/* 串口接收环形队列 */
 typedef struct {
-    uint8_t buffer[RING_BUF_SIZE];               /* queue data buffer */
-    uint16_t head;                               /* dequeue read index */
-    uint16_t tail;                               /* enqueue write index */
-    uint16_t size;                               /* buffered byte count */
+    uint8_t buffer[RING_BUF_SIZE];               /* 队列数据缓存区 */
+    uint16_t head;                               /* 出队读取下标 */
+    uint16_t tail;                               /* 入队写入下标 */
+    uint16_t size;                               /* 当前已缓存字节数 */
 } RingQueue_t;
 
-/* UART frame parser state. */
+/* 串口数据帧解析状态 */
 typedef enum {
-    PARSE_HEAD1,                                 /* waiting for header byte 1 */
-    PARSE_HEAD2,                                 /* waiting for header byte 2 */
-    PARSE_LEN,                                   /* waiting for payload length */
-    PARSE_DATA,                                  /* receiving payload bytes */
-    PARSE_CHECK,                                 /* waiting for checksum */
-    PARSE_TAIL1,                                 /* waiting for tail byte 1 */
-    PARSE_TAIL2                                  /* waiting for tail byte 2 */
+    PARSE_HEAD1,                                 /* 等待帧头字节 1 */
+    PARSE_HEAD2,                                 /* 等待帧头字节 2 */
+    PARSE_LEN,                                   /* 等待有效数据长度 */
+    PARSE_DATA,                                  /* 接收有效数据字节 */
+    PARSE_CHECK,                                 /* 等待校验和 */
+    PARSE_TAIL1,                                 /* 等待帧尾字节 1 */
+    PARSE_TAIL2                                  /* 等待帧尾字节 2 */
 } ParseState_t;
 
-/* UART frame parser context. */
+/* 串口数据帧解析上下文 */
 typedef struct {
-    ParseState_t state;                          /* current parser state */
-    uint8_t data_len;                            /* expected payload length */
-    uint8_t data_buf[MAX_DATA_LEN];              /* payload buffer */
-    uint8_t data_cnt;                            /* received payload byte count */
-    uint8_t check_sum;                           /* accumulated checksum */
+    ParseState_t state;                          /* 当前解析状态 */
+    uint8_t data_len;                            /* 期望接收的有效数据长度 */
+    uint8_t data_buf[MAX_DATA_LEN];              /* 有效数据缓存区 */
+    uint8_t data_cnt;                            /* 已接收的有效数据字节数 */
+    uint8_t check_sum;                           /* 累加校验和 */
 } FrameParse_t;
 
-/* Three-axis vector for gyro, accel, and attitude algorithm input. */
+/* 三轴向量，用于陀螺仪、加速度计和姿态算法输入 */
 typedef struct {
-    float x;                                     /* X axis value */
-    float y;                                     /* Y axis value */
-    float z;                                     /* Z axis value */
+    float x;                                     /* X 轴数值 */
+    float y;                                     /* Y 轴数值 */
+    float z;                                     /* Z 轴数值 */
 } Axis3f;
 
-/* Mahony quaternion attitude filter state. */
+/* Mahony 四元数姿态滤波器状态 */
 typedef struct {
-    float Kp;                                    /* proportional feedback gain */
-    float Ki;                                    /* integral feedback gain */
-    float dt;                                    /* update period, s */
-    float q0;                                    /* quaternion real part */
-    float q1;                                    /* quaternion X imaginary part */
-    float q2;                                    /* quaternion Y imaginary part */
-    float q3;                                    /* quaternion Z imaginary part */
-    float exInt;                                 /* X-axis error integral */
-    float eyInt;                                 /* Y-axis error integral */
-    float ezInt;                                 /* Z-axis error integral */
-    float rMat[3][3];                            /* rotation matrix from quaternion */
-    float roll;                                  /* roll angle, rad */
-    float pitch;                                 /* pitch angle, rad */
-    float yaw;                                   /* yaw angle, rad */
+    float Kp;                                    /* 比例反馈增益 */
+    float Ki;                                    /* 积分反馈增益 */
+    float dt;                                    /* 姿态更新周期，单位 s */
+    float q0;                                    /* 四元数实部 */
+    float q1;                                    /* 四元数 X 轴虚部 */
+    float q2;                                    /* 四元数 Y 轴虚部 */
+    float q3;                                    /* 四元数 Z 轴虚部 */
+    float exInt;                                 /* X 轴误差积分 */
+    float eyInt;                                 /* Y 轴误差积分 */
+    float ezInt;                                 /* Z 轴误差积分 */
+    float rMat[3][3];                            /* 由四元数计算得到的旋转矩阵 */
+    float roll;                                  /* 横滚角，单位 rad */
+    float pitch;                                 /* 俯仰角，单位 rad */
+    float yaw;                                   /* 偏航角，单位 rad */
 } Mahony_t;
 
-/* ICM42688 sensor data and status. */
+/* ICM42688 传感器数据和状态 */
 typedef struct {
-    int16_t RawAccel[3];                         /* raw 3-axis accelerometer ADC data */
-    int16_t RawGyro[3];                          /* raw 3-axis gyroscope ADC data */
-    int16_t RawTemp;                             /* raw temperature ADC data */
-    float Accel[3];                              /* acceleration, m/s^2 */
-    float Gyro[3];                               /* angular rate, rad/s */
-    float GyroOffset[3];                         /* gyroscope bias, rad/s */
-    float Temperature;                           /* chip temperature, degC */
-    uint8_t ChipID;                              /* WHO_AM_I chip ID */
-    uint8_t InitError;                           /* initialization error code */
-    uint8_t LastGyroSaturated;                   /* last gyro read was near full scale */
-    uint8_t LastAccelSaturated;                  /* last accel read was near full scale */
+    int16_t RawAccel[3];                         /* 三轴加速度计原始 ADC 数据 */
+    int16_t RawGyro[3];                          /* 三轴陀螺仪原始 ADC 数据 */
+    int16_t RawTemp;                             /* 温度原始 ADC 数据 */
+    float Accel[3];                              /* 加速度，单位 m/s^2 */
+    float Gyro[3];                               /* 角速度，单位 rad/s */
+    float GyroOffset[3];                         /* 陀螺仪零偏，单位 rad/s */
+    float Temperature;                           /* 芯片温度，单位 摄氏度 */
+    uint8_t ChipID;                              /* WHO_AM_I 芯片 ID */
+    uint8_t InitError;                           /* 初始化错误码 */
+    uint8_t LastGyroSaturated;                   /* 上一次陀螺仪读数是否接近量程上限 */
+    uint8_t LastAccelSaturated;                  /* 上一次加速度计读数是否接近量程上限 */
 } ICM42688_t;
 
-/* ICM42688 initialization error flags. */
+/* ICM42688 初始化错误标志 */
 typedef enum {
-    ICM42688_NO_ERROR = 0x00,                    /* no error */
-    ICM42688_NO_SENSOR = 0x01,                   /* chip not found or WHO_AM_I mismatch */
-    ICM42688_CONFIG_ERROR = 0x02,                /* register configuration failed */
+    ICM42688_NO_ERROR = 0x00,                    /* 无错误 */
+    ICM42688_NO_SENSOR = 0x01,                   /* 未找到芯片或 WHO_AM_I 不匹配 */
+    ICM42688_CONFIG_ERROR = 0x02,                /* 寄存器配置失败 */
 } ICM42688_Error_t;
 
-/* Attitude solver output state. */
+/* 姿态解算输出状态 */
 typedef struct {
-    float q[4];                                  /* quaternion q0/q1/q2/q3 */
-    float Roll;                                  /* roll angle, rad */
-    float Pitch;                                 /* pitch angle, rad */
-    float Yaw;                                   /* yaw angle, rad, approximately -pi to pi */
-    float YawTotalAngle;                         /* continuous yaw angle with wrap count */
-    int32_t YawRoundCount;                       /* yaw wrap count */
+    float q[4];                                  /* 四元数 q0/q1/q2/q3 */
+    float Roll;                                  /* 横滚角，单位 rad */
+    float Pitch;                                 /* 俯仰角，单位 rad */
+    float Yaw;                                   /* 偏航角，单位 rad，范围约为 -pi 到 pi */
+    float YawTotalAngle;                         /* 带圈数累计的连续偏航角 */
+    int32_t YawRoundCount;                       /* 偏航角跨越正负 pi 的圈数计数 */
 } IMU_Attitude_t;
 
 #endif
