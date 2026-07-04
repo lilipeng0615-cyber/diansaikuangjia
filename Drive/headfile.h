@@ -18,5 +18,6 @@
 #include "spi.h"
 #include "ICM42688.h"
 #include "imu_attitude.h"
+#include "EncoderExti.h"
 
 #endif

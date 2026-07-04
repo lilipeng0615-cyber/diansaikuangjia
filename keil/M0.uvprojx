@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>__MSPM0G3507__</Define>
               <Undefine></Undefine>
-              <IncludePath>..;..\Drive;..\Algorithm;..\Task;D:\ti\M0_SDK\mspm0_sdk_2_02_00_05\source\third_party\CMSIS\Core\Include;D:\ti\M0_SDK\mspm0_sdk_2_02_00_05\source</IncludePath>
+              <IncludePath>..;..\Drive;..\apply;..\Algorithm;..\Task;D:\ti\M0_SDK\mspm0_sdk_2_02_00_05\source\third_party\CMSIS\Core\Include;D:\ti\M0_SDK\mspm0_sdk_2_02_00_05\source</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -495,14 +495,14 @@
               <FilePath>..\Drive\spi.h</FilePath>
             </File>
             <File>
-              <FileName>ICM42688.c</FileName>
+              <FileName>EncoderExti.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Drive\ICM42688.c</FilePath>
+              <FilePath>..\Drive\EncoderExti.c</FilePath>
             </File>
             <File>
-              <FileName>ICM42688.h</FileName>
+              <FileName>EncoderExti.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Drive\ICM42688.h</FilePath>
+              <FilePath>..\Drive\EncoderExti.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -533,6 +533,21 @@
         </Group>
         <Group>
           <GroupName>Task</GroupName>
+        </Group>
+        <Group>
+          <GroupName>apply</GroupName>
+          <Files>
+            <File>
+              <FileName>ICM42688.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\apply\ICM42688.c</FilePath>
+            </File>
+            <File>
+              <FileName>ICM42688.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\apply\ICM42688.h</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>

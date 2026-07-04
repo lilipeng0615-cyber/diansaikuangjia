@@ -1,6 +1,5 @@
 #include "imu_attitude.h"
-#include "ICM42688.h"
-#include <string.h>
+
 
 
 #define IMU_MAHONY_KP          1.0f

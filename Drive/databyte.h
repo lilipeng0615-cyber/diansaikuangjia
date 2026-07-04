@@ -33,10 +33,10 @@ typedef double fp64;                 /* 64 位浮点数 */
 #define FRAME_TAIL2 0xCC                         /* 串口数据帧帧尾字节 2 */
 #define MAX_DATA_LEN 256                         /* 串口数据帧最大有效数据长度 */
 
-/* 编码器解析后的反馈数据 */
+/* 编码器数据结构*/
 typedef struct {
-    int v_int;                                   /* 编码器协议中的原始速度值 */
-    int t_int;                                   /* 编码器协议中的原始力矩或占空比值 */
+    int v_int;                                   /* 原始速度值 */
+    int t_int;                                   /* 占空比值 */
     int EncoderCount;                            /* 编码器累计脉冲计数 */
     float pos;                                   /* 换算后的位置，单位 rad */
     float vel;                                   /* 换算后的速度，单位 rad/s */
@@ -68,27 +68,26 @@ typedef enum {
     Disable = 0,                                 /* 模块或电机失能 */
 } Motor_State;
 
-/* 单个电机的编码器统计状态 */
+/* 电机结构 */
 typedef struct {
-    uint8_t dirction;                            /* 编码器方向标志，保留原字段拼写 */
-    int32_t countnum;                            /* 当前编码器计数 */
-    int32_t lastcount;                           /* 上一次编码器计数 */
-    float speed;                                 /* 计算得到的速度 */
-    float speed_Record[SPEED_RECORD_NUM];        /* 速度滑动平均缓存 */
-} encoder_t;
+	Motor_State state;                           /*电机状态*/
+	  int ERF;                                   /*编码器读取频率*/
+	  int EL;                                     /*编玛器线数*/
+	  float TR;                                  /*轮胎半径*/	  
+	  int ExpectOutput;
+	  int Output;
+} BrushMotor_t;
 
-/* 电机控制状态 */
+/* 电机组结构 */
 typedef struct {
-    uint8_t dir;                                 /* 电机转动方向 */
-    float pwmDuty;                               /* PWM 占空比 */
-    float speed;                                 /* 目标速度或当前速度 */
-    float encoder_speed;                         /* 编码器反馈速度 */
-    float pos;                                   /* 电机位置反馈或位置目标 */
-    encoder_t encoder;                           /* 该电机对应的编码器状态 */
-    float error;                                 /* 当前控制误差 */
-    float lasterror;                             /* 上一次控制误差 */
-    float integral;                              /* 误差积分值 */
-} motor_t;
+    Pid_t* PidSelfTurn;
+	  BrushMotor_t* MotorLeft;
+	  BrushMotor_t* MotorRight;
+	  Encoder_t* EncoderLeft;
+	  Encoder_t* EncoderRight;
+	  Pid_t* Left;
+	  Pid_t* Right;
+} Motors_t;
 
 /* 系统采样时间状态 */
 typedef struct {

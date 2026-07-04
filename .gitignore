@@ -12,6 +12,7 @@ keil/*.elf
 keil/*.d
 keil/*.o
 keil/build.log
+keil/build*.log
 
 # Keil user/session files
 keil/*.uvguix.*
