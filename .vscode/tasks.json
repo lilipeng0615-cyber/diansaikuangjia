@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "⚙️ 打开 TI SysConfig",
+            "type": "shell",
+            "command": "D:\\ti\\sysconfig_1.21.1\\sysconfig_gui.bat",
+            "args": [
+                "--compiler", "gcc",
+                "-s", "D:\\ti\\M0_SDK\\mspm0_sdk_2_02_00_05\\.metadata\\product.json",
+                "-o", "${workspaceFolder}",
+                "${workspaceFolder}\\M0.syscfg"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            }
+        }
+    ]
+}

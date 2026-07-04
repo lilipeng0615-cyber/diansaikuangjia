@@ -1,0 +1,216 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "MSPM0G350X" --part "Default" --package "LQFP-64(PM)" --product "mspm0_sdk@2.02.00.05"
+ * @v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)" --product "mspm0_sdk@2.02.00.05"
+ * @versions {"tool":"1.21.1+3772"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const ADC12    = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+const ADC121   = ADC12.addInstance();
+const CAPTURE  = scripting.addModule("/ti/driverlib/CAPTURE", {}, false);
+const CAPTURE1 = CAPTURE.addInstance();
+const CAPTURE2 = CAPTURE.addInstance();
+const GPIO     = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const GPIO1    = GPIO.addInstance();
+const GPIO2    = GPIO.addInstance();
+const GPIO3    = GPIO.addInstance();
+const GPIO4    = GPIO.addInstance();
+const GPIO5    = GPIO.addInstance();
+const GPIO6    = GPIO.addInstance();
+const GPIO7    = GPIO.addInstance();
+const I2C      = scripting.addModule("/ti/driverlib/I2C", {}, false);
+const I2C1     = I2C.addInstance();
+const PWM      = scripting.addModule("/ti/driverlib/PWM", {}, false);
+const PWM1     = PWM.addInstance();
+const SPI      = scripting.addModule("/ti/driverlib/SPI", {}, false);
+const SPI1     = SPI.addInstance();
+const SYSCTL   = scripting.addModule("/ti/driverlib/SYSCTL");
+const SYSTICK  = scripting.addModule("/ti/driverlib/SYSTICK");
+const TIMER    = scripting.addModule("/ti/driverlib/TIMER", {}, false);
+const TIMER1   = TIMER.addInstance();
+const UART     = scripting.addModule("/ti/driverlib/UART", {}, false);
+const UART1    = UART.addInstance();
+const UART2    = UART.addInstance();
+const UART3    = UART.addInstance();
+const UART4    = UART.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+const divider7       = system.clockTree["PLL_PDIV"];
+divider7.divideValue = 2;
+
+const divider9       = system.clockTree["UDIV"];
+divider9.divideValue = 2;
+
+const multiplier2         = system.clockTree["PLL_QDIV"];
+multiplier2.multiplyValue = 5;
+
+const mux8       = system.clockTree["HSCLKMUX"];
+mux8.inputSelect = "HSCLKMUX_SYSPLL2X";
+
+ADC121.$name               = "ADC12_0";
+ADC121.adcPin0Config.$name = "ti_driverlib_gpio_GPIOPinGeneric18";
+
+const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
+
+CAPTURE1.$name               = "CAPTURE_0";
+CAPTURE1.timerClkDiv         = 2;
+CAPTURE1.timerPeriod         = "1 ms";
+CAPTURE1.interrupts          = ["CC0_DN"];
+CAPTURE1.ccp0PinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric8";
+
+CAPTURE2.$name               = "CAPTURE_1";
+CAPTURE2.timerClkDiv         = 2;
+CAPTURE2.timerPeriod         = "1ms";
+CAPTURE2.interrupts          = ["CC0_DN"];
+CAPTURE2.ccp0PinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric9";
+
+GPIO1.$name                   = "XUNJI";
+GPIO1.associatedPins.create(3);
+GPIO1.associatedPins[0].$name = "PIN_0";
+GPIO1.associatedPins[1].$name = "PIN_1";
+GPIO1.associatedPins[2].$name = "PIN_2";
+
+GPIO2.$name                   = "Key";
+GPIO2.associatedPins.create(3);
+GPIO2.associatedPins[0].$name = "PIN_3";
+GPIO2.associatedPins[1].$name = "PIN_4";
+GPIO2.associatedPins[2].$name = "PIN_5";
+
+GPIO3.$name                   = "CS";
+GPIO3.associatedPins[0].$name = "PIN_6";
+
+GPIO4.$name                         = "Motor";
+GPIO4.associatedPins.create(4);
+GPIO4.associatedPins[0].$name       = "PIN_7";
+GPIO4.associatedPins[1].$name       = "PIN_8";
+GPIO4.associatedPins[2].$name       = "PIN_9";
+GPIO4.associatedPins[3].$name       = "PIN_10";
+GPIO4.associatedPins[3].pin.$assign = "PB27";
+
+GPIO5.$name                       = "Encoder";
+GPIO5.associatedPins.create(2);
+GPIO5.associatedPins[0].$name     = "PIN_11";
+GPIO5.associatedPins[0].direction = "INPUT";
+GPIO5.associatedPins[1].$name     = "PIN_12";
+GPIO5.associatedPins[1].direction = "INPUT";
+
+GPIO6.$name                   = "LED";
+GPIO6.associatedPins[0].$name = "PIN_13";
+
+GPIO7.$name                   = "Beep";
+GPIO7.associatedPins[0].$name = "PIN_14";
+
+I2C1.$name              = "I2C_0";
+I2C1.sdaPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric12";
+I2C1.sclPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric13";
+
+PWM1.$name               = "PWM_0";
+PWM1.clockDivider        = 8;
+PWM1.pwmMode             = "EDGE_ALIGN_UP";
+PWM1.PWM_CHANNEL_0.$name = "ti_driverlib_pwm_PWMTimerCC0";
+PWM1.PWM_CHANNEL_1.$name = "ti_driverlib_pwm_PWMTimerCC1";
+PWM1.ccp0PinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric10";
+PWM1.ccp1PinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric11";
+
+SPI1.$name               = "SPI_0";
+SPI1.sclkPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric14";
+SPI1.mosiPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric15";
+SPI1.misoPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric16";
+SPI1.cs0PinConfig.$name  = "ti_driverlib_gpio_GPIOPinGeneric17";
+
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn           = true;
+
+SYSTICK.periodEnable      = true;
+SYSTICK.interruptEnable   = true;
+SYSTICK.systickEnable     = true;
+SYSTICK.interruptPriority = "0";
+SYSTICK.period            = 80000;
+
+TIMER1.$name            = "TIMER_0";
+TIMER1.timerMode        = "PERIODIC_UP";
+TIMER1.timerPeriod      = "10 ms";
+TIMER1.timerClkDiv      = 8;
+TIMER1.interrupts       = ["ZERO"];
+TIMER1.timerClkPrescale = 2;
+
+UART1.$name             = "UART_0";
+UART1.targetBaudRate    = 115200;
+UART1.enabledInterrupts = ["RX"];
+UART1.txPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric0";
+UART1.rxPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric1";
+
+UART2.$name             = "UART_1";
+UART2.targetBaudRate    = 115200;
+UART2.enabledInterrupts = ["RX"];
+UART2.txPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric2";
+UART2.rxPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric3";
+
+UART3.$name             = "UART_2";
+UART3.targetBaudRate    = 115200;
+UART3.txPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric4";
+UART3.rxPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric5";
+
+UART4.$name             = "UART_3";
+UART4.targetBaudRate    = 115200;
+UART4.txPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric6";
+UART4.rxPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric7";
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+ADC121.peripheral.$suggestSolution           = "ADC1";
+ADC121.peripheral.adcPin0.$suggestSolution   = "PA15";
+Board.peripheral.$suggestSolution            = "DEBUGSS";
+Board.peripheral.swclkPin.$suggestSolution   = "PA20";
+Board.peripheral.swdioPin.$suggestSolution   = "PA19";
+CAPTURE1.peripheral.$suggestSolution         = "TIMG6";
+CAPTURE1.peripheral.ccp0Pin.$suggestSolution = "PA29";
+CAPTURE2.peripheral.$suggestSolution         = "TIMG0";
+CAPTURE2.peripheral.ccp0Pin.$suggestSolution = "PA12";
+GPIO1.associatedPins[0].pin.$suggestSolution = "PB16";
+GPIO1.associatedPins[1].pin.$suggestSolution = "PB17";
+GPIO1.associatedPins[2].pin.$suggestSolution = "PB18";
+GPIO2.associatedPins[0].pin.$suggestSolution = "PB19";
+GPIO2.associatedPins[1].pin.$suggestSolution = "PB20";
+GPIO2.associatedPins[2].pin.$suggestSolution = "PB21";
+GPIO3.associatedPins[0].pin.$suggestSolution = "PB13";
+GPIO4.associatedPins[0].pin.$suggestSolution = "PB22";
+GPIO4.associatedPins[1].pin.$suggestSolution = "PB23";
+GPIO4.associatedPins[2].pin.$suggestSolution = "PB24";
+GPIO5.associatedPins[0].pin.$suggestSolution = "PA23";
+GPIO5.associatedPins[1].pin.$suggestSolution = "PA24";
+GPIO6.associatedPins[0].pin.$suggestSolution = "PB14";
+GPIO7.associatedPins[0].pin.$suggestSolution = "PB15";
+I2C1.peripheral.$suggestSolution             = "I2C0";
+I2C1.peripheral.sdaPin.$suggestSolution      = "PA28";
+I2C1.peripheral.sclPin.$suggestSolution      = "PA31";
+PWM1.peripheral.$suggestSolution             = "TIMA1";
+PWM1.peripheral.ccp0Pin.$suggestSolution     = "PB0";
+PWM1.peripheral.ccp1Pin.$suggestSolution     = "PA16";
+SPI1.peripheral.$suggestSolution             = "SPI0";
+SPI1.peripheral.sclkPin.$suggestSolution     = "PA11";
+SPI1.peripheral.mosiPin.$suggestSolution     = "PA5";
+SPI1.peripheral.misoPin.$suggestSolution     = "PA10";
+SPI1.peripheral.cs0Pin.$suggestSolution      = "PA2";
+TIMER1.peripheral.$suggestSolution           = "TIMA0";
+UART1.peripheral.$suggestSolution            = "UART3";
+UART1.peripheral.rxPin.$suggestSolution      = "PA13";
+UART1.peripheral.txPin.$suggestSolution      = "PA14";
+UART2.peripheral.$suggestSolution            = "UART2";
+UART2.peripheral.rxPin.$suggestSolution      = "PA22";
+UART2.peripheral.txPin.$suggestSolution      = "PA21";
+UART3.peripheral.$suggestSolution            = "UART1";
+UART3.peripheral.rxPin.$suggestSolution      = "PA18";
+UART3.peripheral.txPin.$suggestSolution      = "PA17";
+UART4.peripheral.$suggestSolution            = "UART0";
+UART4.peripheral.rxPin.$suggestSolution      = "PA1";
+UART4.peripheral.txPin.$suggestSolution      = "PA0";

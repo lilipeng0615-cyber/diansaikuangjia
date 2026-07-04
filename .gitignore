@@ -1,0 +1,33 @@
+# Keil / ARM build outputs
+keil/Objects/
+keil/Listings/
+keil/*.map
+keil/*.htm
+keil/*.build_log.htm
+keil/*.lnp
+keil/*.axf
+keil/*.hex
+keil/*.bin
+keil/*.elf
+keil/*.d
+keil/*.o
+keil/build.log
+
+# Keil user/session files
+keil/*.uvguix.*
+keil/*.uvgui.*
+keil/*.uvgui_*
+keil/*.uvoptx
+keil/JLinkLog.txt
+keil/EventRecorderStub.scvd
+
+# VS Code local logs
+keil/.vscode/*.log
+keil/.vscode/*.lock
+
+# Local executable/test artifacts
+*.exe
+
+# OS/editor noise
+Thumbs.db
+.DS_Store
