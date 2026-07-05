@@ -72,7 +72,7 @@
           <BeforeMake>
             <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>cmd.exe /C ""D:\ti\sysconfig_1.21.1\sysconfig_cli.bat" -o "$P.." -s "D:\ti\M0_SDK\mspm0_sdk_2_02_00_05\.metadata\product.json" --compiler keil "$P..\M0.syscfg""</UserProg1Name>
+            <UserProg1Name>cmd.exe /C ""C:\ti\sysconfig_1.28.0\sysconfig_cli.bat" -o "$P.." -s "C:\ti\mspm0_sdk_2_10_00_04\.metadata\product.json" --compiler keil "$P..\M0.syscfg""</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -338,9 +338,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>__MSPM0G3507__</Define>
+              <Define>__MSPM0G3507__,ARM_MATH_CM0PLUS</Define>
               <Undefine></Undefine>
-              <IncludePath>..;..\Drive;..\apply;..\Algorithm;..\Task;D:\ti\M0_SDK\mspm0_sdk_2_02_00_05\source\third_party\CMSIS\Core\Include;D:\ti\M0_SDK\mspm0_sdk_2_02_00_05\source</IncludePath>
+              <IncludePath>..;..\Drive;..\apply;..\Algorithm;..\Task;C:\ti\mspm0_sdk_2_10_00_04\source\third_party\CMSIS\Core\Include;C:\ti\mspm0_sdk_2_10_00_04\source\third_party\CMSIS\DSP\Include;C:\ti\mspm0_sdk_2_10_00_04\source;C:\ti\mspm0_sdk_2_10_00_04\source\third_party\CMSIS\DSP\PrivateInclude</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -374,7 +374,7 @@
             <ScatterFile>.\mspm0g3507.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>D:\ti\M0_SDK\mspm0_sdk_2_02_00_05\source\ti\driverlib\lib\keil\m0p\mspm0g1x0x_g3x0x\driverlib.a</Misc>
+            <Misc>C:\ti\mspm0_sdk_2_10_00_04\source\ti\driverlib\lib\keil\m0p\mspm0g1x0x_g3x0x\driverlib.a C:\ti\mspm0_sdk_2_10_00_04\source\third_party\CMSIS\DSP\lib\keil\m0p\arm_cortexM0l_math.a</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -529,6 +529,26 @@
               <FileType>5</FileType>
               <FilePath>..\Algorithm\imu_attitude.h</FilePath>
             </File>
+            <File>
+              <FileName>kalman_filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Algorithm\kalman_filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>kalman_filter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Algorithm\kalman_filter.h</FilePath>
+            </File>
+            <File>
+              <FileName>QuaternionEKF.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Algorithm\QuaternionEKF.c</FilePath>
+            </File>
+            <File>
+              <FileName>QuaternionEKF.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Algorithm\QuaternionEKF.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -566,6 +586,16 @@
               <FileName>Encoder.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\apply\Encoder.h</FilePath>
+            </File>
+            <File>
+              <FileName>GraySensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\apply\GraySensor.c</FilePath>
+            </File>
+            <File>
+              <FileName>GraySensor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\apply\GraySensor.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -63,7 +63,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_init(void)
     SYSCFG_DL_UART_2_init();
     SYSCFG_DL_UART_3_init();
     SYSCFG_DL_SPI_0_init();
-    SYSCFG_DL_ADC12_0_init();
+    SYSCFG_DL_ADCGraySensor_init();
     SYSCFG_DL_SYSTICK_init();
     /* Ensure backup structures have no valid state */
 	gPWM_0Backup.backupRdy 	= false;
@@ -113,7 +113,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_UART_Main_reset(UART_2_INST);
     DL_UART_Main_reset(UART_3_INST);
     DL_SPI_reset(SPI_0_INST);
-    DL_ADC12_reset(ADC12_0_INST);
+    DL_ADC12_reset(ADCGraySensor_INST);
 
 
     DL_GPIO_enablePower(GPIOA);
@@ -126,7 +126,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_UART_Main_enablePower(UART_2_INST);
     DL_UART_Main_enablePower(UART_3_INST);
     DL_SPI_enablePower(SPI_0_INST);
-    DL_ADC12_enablePower(ADC12_0_INST);
+    DL_ADC12_enablePower(ADCGraySensor_INST);
 
     delay_cycles(POWER_STARTUP_DELAY);
 }
@@ -182,11 +182,11 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 
     DL_GPIO_initDigitalOutput(Beep_PIN_14_IOMUX);
 
-    DL_GPIO_initDigitalOutput(XUNJI_PIN_0_IOMUX);
+    DL_GPIO_initDigitalOutput(GraySensor_PIN_0_IOMUX);
 
-    DL_GPIO_initDigitalOutput(XUNJI_PIN_1_IOMUX);
+    DL_GPIO_initDigitalOutput(GraySensor_PIN_1_IOMUX);
 
-    DL_GPIO_initDigitalOutput(XUNJI_PIN_2_IOMUX);
+    DL_GPIO_initDigitalOutput(GraySensor_PIN_2_IOMUX);
 
     DL_GPIO_initDigitalOutput(Key_PIN_3_IOMUX);
 
@@ -218,10 +218,10 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
-    DL_GPIO_clearPins(GPIOA, XUNJI_PIN_1_PIN |
+    DL_GPIO_clearPins(GPIOA, GraySensor_PIN_1_PIN |
 		Motor_PIN_9_PIN |
 		Motor_PIN_10_PIN);
-    DL_GPIO_enableOutput(GPIOA, XUNJI_PIN_1_PIN |
+    DL_GPIO_enableOutput(GPIOA, GraySensor_PIN_1_PIN |
 		Motor_PIN_9_PIN |
 		Motor_PIN_10_PIN);
     DL_GPIO_setUpperPinsPolarity(GPIOA, DL_GPIO_PIN_25_EDGE_RISE);
@@ -230,8 +230,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_clearPins(GPIOB, CS_PIN_6_PIN |
 		LED_PIN_13_PIN |
 		Beep_PIN_14_PIN |
-		XUNJI_PIN_0_PIN |
-		XUNJI_PIN_2_PIN |
+		GraySensor_PIN_0_PIN |
+		GraySensor_PIN_2_PIN |
 		Key_PIN_3_PIN |
 		Key_PIN_4_PIN |
 		Key_PIN_5_PIN |
@@ -240,8 +240,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_enableOutput(GPIOB, CS_PIN_6_PIN |
 		LED_PIN_13_PIN |
 		Beep_PIN_14_PIN |
-		XUNJI_PIN_0_PIN |
-		XUNJI_PIN_2_PIN |
+		GraySensor_PIN_0_PIN |
+		GraySensor_PIN_2_PIN |
 		Key_PIN_3_PIN |
 		Key_PIN_4_PIN |
 		Key_PIN_5_PIN |
@@ -351,9 +351,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_SYSCTL_init(void)
 
     while (SYSCFG_DL_SYSCTL_SYSPLL_init() == false)
     {
-        /* Reconfigure SYSPLL to re-enable it and re-check incorrect locking */
+        /* Toggle SYSPLL enable to re-enable SYSPLL and re-check incorrect locking */
         DL_SYSCTL_disableSYSPLL();
-        DL_SYSCTL_configSYSPLL((DL_SYSCTL_SYSPLLConfig *) &gSYSPLLConfig);
+        DL_SYSCTL_enableSYSPLL();
 
         /* Wait until SYSPLL startup is stabilized*/
         while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_SYSPLLGOOD_MASK) != DL_SYSCTL_CLK_STATUS_SYSPLL_GOOD){}
@@ -642,19 +642,19 @@ SYSCONFIG_WEAK void SYSCFG_DL_SPI_0_init(void) {
     DL_SPI_enable(SPI_0_INST);
 }
 
-/* ADC12_0 Initialization */
-static const DL_ADC12_ClockConfig gADC12_0ClockConfig = {
+/* ADCGraySensor Initialization */
+static const DL_ADC12_ClockConfig gADCGraySensorClockConfig = {
     .clockSel       = DL_ADC12_CLOCK_SYSOSC,
     .divideRatio    = DL_ADC12_CLOCK_DIVIDE_1,
     .freqRange      = DL_ADC12_CLOCK_FREQ_RANGE_24_TO_32,
 };
-SYSCONFIG_WEAK void SYSCFG_DL_ADC12_0_init(void)
+SYSCONFIG_WEAK void SYSCFG_DL_ADCGraySensor_init(void)
 {
-    DL_ADC12_setClockConfig(ADC12_0_INST, (DL_ADC12_ClockConfig *) &gADC12_0ClockConfig);
-    DL_ADC12_configConversionMem(ADC12_0_INST, ADC12_0_ADCMEM_0,
+    DL_ADC12_setClockConfig(ADCGraySensor_INST, (DL_ADC12_ClockConfig *) &gADCGraySensorClockConfig);
+    DL_ADC12_configConversionMem(ADCGraySensor_INST, ADCGraySensor_ADCMEM_0,
         DL_ADC12_INPUT_CHAN_0, DL_ADC12_REFERENCE_VOLTAGE_VDDA, DL_ADC12_SAMPLE_TIMER_SOURCE_SCOMP0, DL_ADC12_AVERAGING_MODE_DISABLED,
         DL_ADC12_BURN_OUT_SOURCE_DISABLED, DL_ADC12_TRIGGER_MODE_AUTO_NEXT, DL_ADC12_WINDOWS_COMP_MODE_DISABLED);
-    DL_ADC12_enableConversions(ADC12_0_INST);
+    DL_ADC12_enableConversions(ADCGraySensor_INST);
 }
 
 SYSCONFIG_WEAK void SYSCFG_DL_SYSTICK_init(void)

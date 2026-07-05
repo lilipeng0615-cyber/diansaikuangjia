@@ -21,9 +21,14 @@
 #include "EncoderExti.h"
 #include "MotorControl.h"
 #include "Encoder.h"
+#include "GraySensor.h"
+#include "kalman_filter.h"
+#include "QuaternionEKF.h"
 
 
+#ifndef PI
 #define PI 	   3.14159265358979323846l
+#endif
 
 #define BrushMotor_PID_mode		  PID_POSITION
 #define BrushMotor_PID_KP   		10.0f

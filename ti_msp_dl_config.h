@@ -220,17 +220,17 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 
 
 
-/* Defines for ADC12_0 */
-#define ADC12_0_INST                                                        ADC1
-#define ADC12_0_INST_IRQHandler                                  ADC1_IRQHandler
-#define ADC12_0_INST_INT_IRQN                                    (ADC1_INT_IRQn)
-#define ADC12_0_ADCMEM_0                                      DL_ADC12_MEM_IDX_0
-#define ADC12_0_ADCMEM_0_REF                     DL_ADC12_REFERENCE_VOLTAGE_VDDA
-#define ADC12_0_ADCMEM_0_REF_VOLTAGE_V                                       3.3
-#define GPIO_ADC12_0_C0_PORT                                               GPIOA
-#define GPIO_ADC12_0_C0_PIN                                       DL_GPIO_PIN_15
-#define GPIO_ADC12_0_IOMUX_C0                                    (IOMUX_PINCM37)
-#define GPIO_ADC12_0_IOMUX_C0_FUNC                (IOMUX_PINCM37_PF_UNCONNECTED)
+/* Defines for ADCGraySensor */
+#define ADCGraySensor_INST                                                  ADC1
+#define ADCGraySensor_INST_IRQHandler                            ADC1_IRQHandler
+#define ADCGraySensor_INST_INT_IRQN                              (ADC1_INT_IRQn)
+#define ADCGraySensor_ADCMEM_0                                DL_ADC12_MEM_IDX_0
+#define ADCGraySensor_ADCMEM_0_REF               DL_ADC12_REFERENCE_VOLTAGE_VDDA
+#define ADCGraySensor_ADCMEM_0_REF_VOLTAGE_V                                     3.3
+#define GPIO_ADCGraySensor_C0_PORT                                         GPIOA
+#define GPIO_ADCGraySensor_C0_PIN                                 DL_GPIO_PIN_15
+#define GPIO_ADCGraySensor_IOMUX_C0                              (IOMUX_PINCM37)
+#define GPIO_ADCGraySensor_IOMUX_C0_FUNC          (IOMUX_PINCM37_PF_UNCONNECTED)
 
 
 
@@ -253,17 +253,17 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 #define Beep_PIN_14_PIN                                         (DL_GPIO_PIN_15)
 #define Beep_PIN_14_IOMUX                                        (IOMUX_PINCM32)
 /* Defines for PIN_0: GPIOB.16 with pinCMx 33 on package pin 4 */
-#define XUNJI_PIN_0_PORT                                                 (GPIOB)
-#define XUNJI_PIN_0_PIN                                         (DL_GPIO_PIN_16)
-#define XUNJI_PIN_0_IOMUX                                        (IOMUX_PINCM33)
+#define GraySensor_PIN_0_PORT                                            (GPIOB)
+#define GraySensor_PIN_0_PIN                                    (DL_GPIO_PIN_16)
+#define GraySensor_PIN_0_IOMUX                                   (IOMUX_PINCM33)
 /* Defines for PIN_1: GPIOA.12 with pinCMx 34 on package pin 5 */
-#define XUNJI_PIN_1_PORT                                                 (GPIOA)
-#define XUNJI_PIN_1_PIN                                         (DL_GPIO_PIN_12)
-#define XUNJI_PIN_1_IOMUX                                        (IOMUX_PINCM34)
+#define GraySensor_PIN_1_PORT                                            (GPIOA)
+#define GraySensor_PIN_1_PIN                                    (DL_GPIO_PIN_12)
+#define GraySensor_PIN_1_IOMUX                                   (IOMUX_PINCM34)
 /* Defines for PIN_2: GPIOB.17 with pinCMx 43 on package pin 14 */
-#define XUNJI_PIN_2_PORT                                                 (GPIOB)
-#define XUNJI_PIN_2_PIN                                         (DL_GPIO_PIN_17)
-#define XUNJI_PIN_2_IOMUX                                        (IOMUX_PINCM43)
+#define GraySensor_PIN_2_PORT                                            (GPIOB)
+#define GraySensor_PIN_2_PIN                                    (DL_GPIO_PIN_17)
+#define GraySensor_PIN_2_IOMUX                                   (IOMUX_PINCM43)
 /* Port definition for Pin Group Key */
 #define Key_PORT                                                         (GPIOB)
 
@@ -338,7 +338,7 @@ void SYSCFG_DL_UART_1_init(void);
 void SYSCFG_DL_UART_2_init(void);
 void SYSCFG_DL_UART_3_init(void);
 void SYSCFG_DL_SPI_0_init(void);
-void SYSCFG_DL_ADC12_0_init(void);
+void SYSCFG_DL_ADCGraySensor_init(void);
 
 void SYSCFG_DL_SYSTICK_init(void);
 

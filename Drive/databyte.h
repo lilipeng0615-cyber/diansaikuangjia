@@ -183,10 +183,46 @@ typedef struct {
 } IMU_Attitude_t;
 
 
+// 灰度传感器数据结构
+typedef struct
+{
+    // 传感器位状态
+    uint8_t bit0 : 1;
+    uint8_t bit1 : 1;
+    uint8_t bit2 : 1;
+    uint8_t bit3 : 1;
+    uint8_t bit4 : 1;
+    uint8_t bit5 : 1;
+    uint8_t bit6 : 1;
+    uint8_t bit7 : 1;
+    uint8_t BinaryData;        // 二进制数据
+    uint8_t GraySensorNoData;  // 传感器无数据标志
+    
+    // ADC原始值存储
+    uint16_t adc0_raw;  // bit0对应的ADC原始值
+    uint16_t adc1_raw;  // bit1对应的ADC原始值
+    uint16_t adc2_raw;  // bit2对应的ADC原始值
+    uint16_t adc3_raw;  // bit3对应的ADC原始值
+    uint16_t adc4_raw;  // bit4对应的ADC原始值
+    uint16_t adc5_raw;  // bit5对应的ADC原始值
+    uint16_t adc6_raw;  // bit6对应的ADC原始值
+    uint16_t adc7_raw;  // bit7对应的ADC原始值
+    
+    // 校准数据
+    uint16_t calibrated_white[8];  // 白色校准值数组
+    uint16_t calibrated_black[8];  // 黑色校准值数组
+    
+    // 归一化系数
+    float normal_factor[8];        // 每个传感器的归一化系数
+    uint16_t adc_bits;             // ADC位数对应的满量程值(如12位=4096)
+} GraySensor_t;
+	
+
 /*整车的数据结构*/
 typedef struct{
 	 Motors_t*  Motors;
 	 IMU_Attitude_t *IMU;
+	 GraySensor_t *GraySensor_t;
 	
 }Car_t;
 

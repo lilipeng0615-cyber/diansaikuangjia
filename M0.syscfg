@@ -55,12 +55,13 @@ multiplier2.multiplyValue = 5;
 const mux8       = system.clockTree["HSCLKMUX"];
 mux8.inputSelect = "HSCLKMUX_SYSPLL2X";
 
-ADC121.$name               = "ADC12_0";
-ADC121.adcPin0Config.$name = "ti_driverlib_gpio_GPIOPinGeneric18";
+ADC121.$name                             = "ADCGraySensor";
+ADC121.adcPin0Config.hideOutputInversion = scripting.forceWrite(false);
+ADC121.adcPin0Config.$name               = "ti_driverlib_gpio_GPIOPinGeneric18";
 
 const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
 
-GPIO1.$name                   = "XUNJI";
+GPIO1.$name                   = "GraySensor";
 GPIO1.associatedPins.create(3);
 GPIO1.associatedPins[0].$name = "PIN_0";
 GPIO1.associatedPins[1].$name = "PIN_1";

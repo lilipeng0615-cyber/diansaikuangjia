@@ -1,45 +1,66 @@
-# M0 — MSPM0G3507 空白工程 (Keil MDK + MSPM0 SDK)
+# M0 MSPM0G3507 智能车工程
 
-基于 TI MSPM0 SDK `2.02.00.05` 的 DriverLib 空白模板，目标芯片 **MSPM0G3507** (Cortex-M0+, LQFP-64 / LP-MSPM0G3507)。
+这是一个基于 TI MSPM0G3507 的智能车工程，使用 Keil MDK ARMCLANG 编译，外设初始化代码由 SysConfig 生成。
+
+## 当前配置
+
+- 主控芯片: MSPM0G3507
+- 编译器: Keil MDK ARMCLANG V6.21
+- MSPM0 SDK: `C:\ti\mspm0_sdk_2_10_00_04`
+- SysConfig: `C:\ti\sysconfig_1.28.0`
+- CMSIS-DSP: 使用 SDK 自带 `arm_math.h` 和 `arm_cortexM0l_math.a`
 
 ## 目录结构
-```
+
+```text
 M0/
-├── main.c                  用户主程序（在 while(1) 里写你的代码）
-├── M0.syscfg               SysConfig 配置文件（最小化：仅 SYSCTL + Board）
-├── ti_msp_dl_config.c/.h   外设初始化代码（由 SysConfig 根据 .syscfg 自动生成，勿手改）
-├── README.md
-├── .vscode/
-│   └── tasks.json          VS Code 任务：⚙️ 打开 TI SysConfig（图形界面）
-└── keil/
-    ├── M0.uvprojx          Keil 工程文件（双击打开）
-    ├── M0.uvoptx
-    ├── mspm0g3507.sct      链接脚本（分散加载）
-    └── startup_mspm0g350x_uvision.s   启动文件
+|-- main.c
+|-- M0.syscfg
+|-- ti_msp_dl_config.c
+|-- ti_msp_dl_config.h
+|-- Drive/
+|   |-- LED / Beep / Delay / UART / SPI
+|   |-- motor / PID / EncoderExti
+|   `-- headfile.h / databyte.h
+|-- apply/
+|   |-- ICM42688
+|   |-- MotorControl
+|   |-- Encoder
+|   `-- GraySensor
+|-- Algorithm/
+|   |-- mahony_filter
+|   |-- imu_attitude
+|   |-- kalman_filter
+|   `-- QuaternionEKF
+`-- keil/
+    |-- M0.uvprojx
+    |-- mspm0g3507.sct
+    `-- startup_mspm0g350x_uvision.s
 ```
 
-## 依赖（本机实际路径，均在 D 盘）
-- MSPM0 SDK: `D:\ti\M0_SDK\mspm0_sdk_2_02_00_05`
-- SysConfig（带 GUI）: `D:\ti\sysconfig_1.21.1`
-- driverlib.a: `...\source\ti\driverlib\lib\keil\m0p\mspm0g1x0x_g3x0x\driverlib.a`
+## 编译方法
 
-> 说明：本机另有 C 盘的 SDK 2.10.00.04 + SysConfig 1.26.2，但 1.26.2 是**纯命令行版没有 GUI**，
-> 所以工程统一用 D 盘成套的 SDK 2.02 + SysConfig 1.21.1（版本匹配，GUI 可直接打开）。
+1. 用 Keil 打开 `keil\M0.uvprojx`。
+2. 选择目标 `M0`。
+3. 按 `F7` 编译。
 
-工程用**绝对路径**引用 SDK，可放在 SDK 目录之外（当前在桌面）。
-若以后路径/版本变化，需同步修改：
-- `keil/M0.uvprojx`：IncludePath、`driverlib.a` 路径、BeforeMake 里调用 SysConfig 的命令行
-- `.vscode/tasks.json`：`command` 与 `-s` 后的 product.json 路径
+也可以在命令行编译:
 
-## 使用
+```powershell
+& "D:\Keil5\UV4\UV4.exe" -b "C:\Users\PC\Desktop\M0\keil\M0.uvprojx" -t "M0"
+```
 
-### Keil
-1. 用 Keil µVision 打开 `keil/M0.uvprojx`。
-2. 首次需安装 TI 器件包 `MSPM0G3507`（Pack Installer，Vendor: Texas Instruments）。
-3. 编译（F7）。编译前会自动运行 SysConfig，依据 `M0.syscfg` 重新生成 `ti_msp_dl_config.c/.h`。
+## SysConfig 说明
 
-### VS Code
-- 打开 `M0` 文件夹 → `Ctrl+Shift+P` → `Tasks: Run Task` → **⚙️ 打开 TI SysConfig**，
-  即可用图形界面编辑 `M0.syscfg`；保存后会重新生成 `ti_msp_dl_config.c/.h` 到工程根目录。
+如果需要重新配置 GPIO、SPI、UART、时钟等外设，请修改 `M0.syscfg`，然后重新生成:
 
-> 提示：`ti_msp_dl_config.c/.h` 是自动生成的，改外设请改 `.syscfg`（或用 GUI），不要直接编辑这两个文件。
+- `ti_msp_dl_config.c`
+- `ti_msp_dl_config.h`
+
+当前 Keil 工程已经切到 MSPM0 SDK `2.10.00.04`。这样重新生成代码后，`DL_SYSCTL_enableSYSPLL()` 这类新 SDK 接口可以正常找到，不会再因为 Keil 还指向旧 SDK `2.02.00.05` 而报未声明错误。
+
+## 注意事项
+
+- `ti_msp_dl_config.c` 和 `ti_msp_dl_config.h` 是 SysConfig 生成文件，通常不要手动改。
+- `kalman_filter` 和 `QuaternionEKF` 依赖 CMSIS-DSP，所以不要删除 `ARM_MATH_CM0PLUS`、CMSIS-DSP 头文件路径和 DSP 数学库。
+- Keil 编译输出在 `keil\Objects` 等目录下，已经通过 `.gitignore` 忽略，不需要上传到仓库。
