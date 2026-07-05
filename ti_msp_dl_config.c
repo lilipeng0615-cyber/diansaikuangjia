@@ -438,7 +438,7 @@ static const DL_TimerA_ClockConfig gTIMER_0ClockConfig = {
 static const DL_TimerA_TimerConfig gTIMER_0TimerConfig = {
     .period     = TIMER_0_INST_LOAD_VALUE,
     .timerMode  = DL_TIMER_TIMER_MODE_PERIODIC_UP,
-    .startTimer = DL_TIMER_STOP,
+    .startTimer = DL_TIMER_START,
 };
 
 SYSCONFIG_WEAK void SYSCFG_DL_TIMER_0_init(void) {

@@ -19,5 +19,31 @@
 #include "ICM42688.h"
 #include "imu_attitude.h"
 #include "EncoderExti.h"
+#include "MotorControl.h"
+#include "Encoder.h"
+
+
+#define PI 	   3.14159265358979323846l
+
+#define BrushMotor_PID_mode		  PID_POSITION
+#define BrushMotor_PID_KP   		10.0f
+#define BrushMotor_PID_KI   		0.8f
+#define BrushMotor_PID_KD   		5.0f
+#define BrushMotor_PID_Maxout   1000.0f
+#define BrushMotor_PID_MaxIout  1000.0f
+
+
+#define SelfTurn_PID_mode 			PID_POSITION
+#define SelfTurn_PID_KP   			0.8f
+#define SelfTurn_PID_KI   			0.0f
+#define SelfTurn_PID_KD   			0.15f
+#define SelfTurn_PID_Maxout   	200.0f
+#define SelfTurn_PID_MaxIout 	  10.0f
+
+#define EncoderReadingFrequency 100.0f
+#define EncoderLines 390.0f
+#define TireRadius 6.5f
+
+
 
 #endif

@@ -1,5 +1,7 @@
 #include "headfile.h"
 
+Car_t car;
+
 int main()
 {
     uint32_t last_tick;

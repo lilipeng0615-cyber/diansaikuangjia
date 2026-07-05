@@ -547,6 +547,26 @@
               <FileType>5</FileType>
               <FilePath>..\apply\ICM42688.h</FilePath>
             </File>
+            <File>
+              <FileName>MotorControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\apply\MotorControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>MotorControl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\apply\MotorControl.h</FilePath>
+            </File>
+            <File>
+              <FileName>Encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\apply\Encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>Encoder.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\apply\Encoder.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

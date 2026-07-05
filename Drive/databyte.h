@@ -182,4 +182,12 @@ typedef struct {
     int32_t YawRoundCount;                       /* 偏航角跨越正负 pi 的圈数计数 */
 } IMU_Attitude_t;
 
+
+/*整车的数据结构*/
+typedef struct{
+	 Motors_t*  Motors;
+	 IMU_Attitude_t *IMU;
+	
+}Car_t;
+
 #endif

@@ -146,6 +146,7 @@ TIMER1.timerPeriod      = "10 ms";
 TIMER1.timerClkDiv      = 8;
 TIMER1.interrupts       = ["ZERO"];
 TIMER1.timerClkPrescale = 2;
+TIMER1.timerStartTimer  = true;
 
 UART1.$name             = "UART_0";
 UART1.targetBaudRate    = 115200;
