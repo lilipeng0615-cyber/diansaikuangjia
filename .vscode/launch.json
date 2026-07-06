@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug M0 (OpenOCD)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/M0.elf",
+      "servertype": "openocd",
+      "serverpath": "D:/xpack-openocd-0.12.0-7-win32-x64/xpack-openocd-0.12.0-7/bin/openocd.exe",
+      "armToolchainPath": "C:/ti/gcc_arm_none_eabi_9_2_1/bin",
+      "configFiles": ["board/ti_mspm0_launchpad.cfg"],
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none"
+    }
+  ]
+}

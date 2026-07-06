@@ -24,6 +24,9 @@
 #include "GraySensor.h"
 #include "kalman_filter.h"
 #include "QuaternionEKF.h"
+#include "Key.h"
+#include "Time.h"
+
 
 
 #ifndef PI

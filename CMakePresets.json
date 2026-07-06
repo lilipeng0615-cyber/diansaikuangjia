@@ -1,0 +1,19 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "gcc",
+      "displayName": "MSPM0G3507 (GCC)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "toolchainFile": "${sourceDir}/cmake/arm-gcc.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_MAKE_PROGRAM": "D:/ninja-win/ninja.exe"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "gcc", "configurePreset": "gcc" }
+  ]
+}

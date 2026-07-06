@@ -217,12 +217,21 @@ typedef struct
     uint16_t adc_bits;             // ADC位数对应的满量程值(如12位=4096)
 } GraySensor_t;
 	
+//任务状态
+typedef struct {
+	
+	
+}task_t;
+	
+	
+
 
 /*整车的数据结构*/
 typedef struct{
 	 Motors_t*  Motors;
 	 IMU_Attitude_t *IMU;
 	 GraySensor_t *GraySensor_t;
+	 task_t *task;
 	
 }Car_t;
 

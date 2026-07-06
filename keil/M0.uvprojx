@@ -504,6 +504,16 @@
               <FileType>5</FileType>
               <FilePath>..\Drive\EncoderExti.h</FilePath>
             </File>
+            <File>
+              <FileName>Key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drive\Key.c</FilePath>
+            </File>
+            <File>
+              <FileName>Key.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Drive\Key.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -596,6 +606,16 @@
               <FileName>GraySensor.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\apply\GraySensor.h</FilePath>
+            </File>
+            <File>
+              <FileName>Time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\apply\Time.c</FilePath>
+            </File>
+            <File>
+              <FileName>Time.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\apply\Time.h</FilePath>
             </File>
           </Files>
         </Group>

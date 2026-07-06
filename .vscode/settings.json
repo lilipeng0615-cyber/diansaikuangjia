@@ -1,0 +1,9 @@
+{
+  "cmake.useCMakePresets": "always",
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build",
+    "--query-driver=C:/ti/gcc_arm_none_eabi_9_2_1/bin/arm-none-eabi-gcc.exe"
+  ],
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "files.associations": { "*.lds": "plaintext" }
+}
