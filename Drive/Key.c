@@ -1,5 +1,6 @@
 #include "Key.h"
 
+extern Car_t car;
 
 #define KEY_PRESSED				1
 #define KEY_UNPRESSED			0
@@ -165,55 +166,33 @@ void Key_Task_Handle(void)
 
     if(Key_check(0, 0x02))
     {
-//			if(task==stop||task==finsh)
-//        {
-//					IMU_Update();
-//					seg=0;
-//           task=task1;
-				}
-			
-			/*24*/
-//			task=task1;
-//			target_yaw=ahrs.yaw;
-//			seg1=0;
-//      beepflag=0;
-//			clear_pluse();
-    
-
+			car.task->TaskFlag = 1;
+			car.task->TaskState = 0;
+			car.task->Carstartflag = 1;
+		}
 
     if(Key_check(1, 0x02))
     {
-						/*24*/
-//			task=task2;
-//			IMU_Update();
-//			beepflag=0;
-//			seg2=0;
-//			target_yaw=ahrs.yaw;
-//			clear_pluse();
+			car.task->TaskFlag = 2;
+			car.task->TaskState = 0;
+			car.task->Carstartflag = 1;
     }
 
     if(Key_check(2, 0x02))
     {
-						/*24*/
-//			task=task3;
-//			seg3=0;
-//			target_yaw=Angleclan(ahrs.yaw -37.9);
-//			beepflag=0;
-//			clear_pluse();
+			car.task->TaskFlag = 3;
+			car.task->TaskState = 0;
+			car.task->Carstartflag = 1;
+			car.task->LapCount=1;
     }
 
 
     if(Key_check(3, 0x02))
     {
-//			task=task3;
-//			clear_pluse();
-//			read_pins();
-//			lap_set++;
-
-//			if(lap_set>5)
-//			{
-//					lap_set=1;
-//			}
+			car.task->TaskFlag = 4;
+			car.task->TaskState = 0;
+			car.task->Carstartflag = 1;
+			car.task->LapCount=4;
     }
 }
 

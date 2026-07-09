@@ -5,6 +5,7 @@ volatile uint32_t  sysTickUptime=0;
 void SysTick_Handler(void)
 {
 	sysTickUptime++;
+	Key_Tick();
 }
 
 

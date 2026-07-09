@@ -495,6 +495,21 @@
               <FilePath>..\Drive\spi.h</FilePath>
             </File>
             <File>
+              <FileName>LCD_ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drive\LCD_ST7735.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_ST7735.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Drive\LCD_ST7735.h</FilePath>
+            </File>
+            <File>
+              <FileName>lcdfont.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Drive\lcdfont.h</FilePath>
+            </File>
+            <File>
               <FileName>EncoderExti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drive\EncoderExti.c</FilePath>
@@ -563,6 +578,18 @@
         </Group>
         <Group>
           <GroupName>Task</GroupName>
+          <Files>
+            <File>
+              <FileName>task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Task\task.c</FilePath>
+            </File>
+            <File>
+              <FileName>task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Task\task.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>apply</GroupName>

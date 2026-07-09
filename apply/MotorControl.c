@@ -71,8 +71,8 @@ void MotorStop(Motors_t* Motors)
 
 void MotorDirectionSet(Motors_t* Motors)
 {
-	(Motors->MotorLeft->Output>0)?(DL_GPIO_setPins(Motor_PIN_7_PORT,Motor_PIN_7_PIN)):(DL_GPIO_clearPins(Motor_PIN_7_PORT,Motor_PIN_7_PIN));
-	(Motors->MotorRight->Output>0)?(DL_GPIO_setPins(Motor_PIN_9_PORT,Motor_PIN_9_PIN)):(DL_GPIO_clearPins(Motor_PIN_9_PORT,Motor_PIN_9_PIN));
+	(Motors->MotorLeft->Output>0)?(DL_GPIO_setPins(Motor_PORT,Motor_PIN_7_PIN)):(DL_GPIO_clearPins(Motor_PORT,Motor_PIN_7_PIN));
+	(Motors->MotorRight->Output>0)?(DL_GPIO_setPins(Motor_PORT,Motor_PIN_9_PIN)):(DL_GPIO_clearPins(Motor_PORT,Motor_PIN_9_PIN));
 }
 
 void MotorPidCtrl (Motors_t* Motors,fp32 TurnAngleSet,fp32 AverageSpeedSet)

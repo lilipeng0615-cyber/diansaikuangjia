@@ -1,35 +1,28 @@
 #include "Beep.h"
 
 
-volatile int beep_time;
-
-void Beep(uint8_t s)
+void BeepInit(Buzzer_t **Buzzer)
 {
-	if(s)
-	DL_GPIO_setPins(Beep_PORT,Beep_PIN_14_PIN);
-	else
-	DL_GPIO_clearPins(Beep_PORT,Beep_PIN_14_PIN);
+	static Buzzer_t buzzer;
+	*Buzzer=&buzzer;
+	buzzer.BuzzerCount=0;
+	buzzer.BuzzerFlag=0;
 }
 
-
-void Beep_up(void)
+void BuzzerDataUpdate(Buzzer_t* Buzzer)
 {
-	led(0,0);
-	beep_time=10;
-}
-
-void Beep_feed(void)
-{
-	if(beep_time>0)
-	{
-		beep_time--;
-		 Beep(1);
+	if(Buzzer->BuzzerFlag){
+		PWMStart(PWM_Buzzer_INST);
+		Buzzer->BuzzerCount--;
+		if(Buzzer->BuzzerCount == 0)
+			Buzzer->BuzzerFlag = 0;
 	}
 	else
-	{
-    led(1,0);		
-		Beep(0);
-	}
-	
-	
+		PWMStop(PWM_Buzzer_INST);
+}
+
+void BuzzerBee(Buzzer_t* Buzzer)
+{
+	Buzzer->BuzzerCount = 2;
+	Buzzer->BuzzerFlag = 1;
 }

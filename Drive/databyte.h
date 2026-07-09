@@ -217,11 +217,28 @@ typedef struct
     uint16_t adc_bits;             // ADC位数对应的满量程值(如12位=4096)
 } GraySensor_t;
 	
+//蜂鸣器
+typedef struct
+{
+	int8_t 	BuzzerFlag;
+	int16_t BuzzerCount;
+}Buzzer_t;
+
+
 //任务状态
 typedef struct {
+	int8 Carstartflag;//启动标志位
+	int8 StTrPreFlag;//声光倒计时
+	int16 TaskFlag;//第几问
+	int16 TaskState;//阶段标志位
+  int16 LastTaskStat;//路径计时
+	int16 LapCount;//圈数
 	
-	
-}task_t;
+	float  AverageSpeed;///平均速度
+	float  Deltayaw;//航向偏差
+	float  Datumyaw;//基准航向角
+  	
+}Task_t;
 	
 	
 
@@ -231,8 +248,9 @@ typedef struct{
 	 Motors_t*  Motors;
 	 IMU_Attitude_t *IMU;
 	 GraySensor_t *GraySensor_t;
-	 task_t *task;
-	
+	 Buzzer_t *buzzer;
+	 Task_t *task;
+	 
 }Car_t;
 
 #endif

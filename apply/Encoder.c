@@ -47,10 +47,10 @@ void EncoderDataUpdate(Motors_t* Motor)
 	Motor->EncoderLeft->vel=(Motor->EncoderLeft->v_int*temp)*0.2+Motor->EncoderLeft->vel*0.8;
 	Motor->EncoderRight->vel=(Motor->EncoderRight->v_int*temp)*0.2+Motor->EncoderRight->vel*0.8;
 	
-	Motor->EncoderLeft->V=Motor->EncoderLeft->V*TireRadius;
-	Motor->EncoderRight->V=Motor->EncoderRight->V*TireRadius;
+	Motor->EncoderLeft->V=Motor->EncoderLeft->vel*TireRadius;
+	Motor->EncoderRight->V=Motor->EncoderRight->vel*TireRadius;
 	
-	Motor->EncoderRight->X+=Motor->EncoderLeft->V/EncoderReadingFrequency;
+	Motor->EncoderLeft->X+=Motor->EncoderLeft->V/EncoderReadingFrequency;
 	Motor->EncoderRight->X+=Motor->EncoderRight->V/EncoderReadingFrequency;
 	
 }

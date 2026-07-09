@@ -5,5 +5,89 @@
     "--query-driver=C:/ti/gcc_arm_none_eabi_9_2_1/bin/arm-none-eabi-gcc.exe"
   ],
   "C_Cpp.intelliSenseEngine": "disabled",
-  "files.associations": { "*.lds": "plaintext" }
+  "files.associations": { "*.lds": "plaintext" },
+  "background.enabled": true,
+  "background.fullscreen": {
+    "images": [
+      "C:/Users/PC/Desktop/微信图片_20260604175431_340_23.jpg"
+    ],
+    "opacity": 0.22,
+    "size": "cover",
+    "position": "center",
+    "interval": 0,
+    "random": false
+  },
+  "background.editor": {
+    "useFront": true,
+    "style": {
+      "background-position": "center",
+      "background-size": "cover",
+      "opacity": 0.16
+    },
+    "styles": [
+      {},
+      {},
+      {}
+    ],
+    "images": [
+      "C:/Users/PC/Desktop/微信图片_20260604175431_340_23.jpg"
+    ],
+    "interval": 0,
+    "random": false
+  },
+  "background.sidebar": {
+    "images": [
+      "C:/Users/PC/Desktop/微信图片_20260604175431_340_23.jpg"
+    ],
+    "opacity": 0.18,
+    "size": "cover",
+    "position": "center",
+    "interval": 0,
+    "random": false
+  },
+  "background.panel": {
+    "images": [
+      "C:/Users/PC/Desktop/微信图片_20260604175431_340_23.jpg"
+    ],
+    "opacity": 0.14,
+    "size": "cover",
+    "position": "center",
+    "interval": 0,
+    "random": false
+  },
+  "background.auxiliarybar": {
+    "images": [
+      "C:/Users/PC/Desktop/微信图片_20260604175431_340_23.jpg"
+    ],
+    "opacity": 0.18,
+    "size": "cover",
+    "position": "center",
+    "interval": 0,
+    "random": false
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#2a141f",
+    "activityBar.foreground": "#ffd9e8",
+    "activityBar.activeBorder": "#ff8fb8",
+    "activityBarBadge.background": "#f05f9a",
+    "activityBarBadge.foreground": "#ffffff",
+    "sideBar.background": "#21121aaa",
+    "sideBar.foreground": "#f8dbe6",
+    "sideBarTitle.foreground": "#ffd9e8",
+    "editorGroupHeader.tabsBackground": "#1b0d14cc",
+    "tab.activeBackground": "#321827",
+    "tab.activeForeground": "#ffe9f1",
+    "tab.inactiveBackground": "#1f1018cc",
+    "tab.inactiveForeground": "#d7a9bb",
+    "titleBar.activeBackground": "#2d1522",
+    "titleBar.activeForeground": "#ffe9f1",
+    "statusBar.background": "#341727",
+    "statusBar.foreground": "#ffe9f1",
+    "statusBar.debuggingBackground": "#b3366f",
+    "panel.background": "#1f1018cc",
+    "panelTitle.activeForeground": "#ffb4cf",
+    "editorCursor.foreground": "#ff8fb8",
+    "editor.selectionBackground": "#ff8fb844",
+    "editor.lineHighlightBackground": "#ffffff0d"
+  }
 }
