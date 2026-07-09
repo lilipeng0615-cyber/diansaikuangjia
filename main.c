@@ -2,6 +2,7 @@
 
 Car_t car;
 extern volatile uint8 imuflag;
+uint32_t lcd_last_ms = 0;
 
 void duty_100hz(void)
 {
@@ -50,6 +51,7 @@ int main()
 	Task_Init(&car.task);
 	IMU_Attitude_Init();
 	LCD_Init();
+	LCD_Clear(LCD_BLACK);
 	Time_Init();
 	
     while(1)
@@ -60,9 +62,12 @@ int main()
 				duty_100hz();
 			}
 			Key_Task_Handle();
+			if ((millis() - lcd_last_ms) >= 100U)
+			{
+				lcd_last_ms = millis();
+				LCD_DebugUpdate(car);
+			}
 		}
 }
-
-
 
 
