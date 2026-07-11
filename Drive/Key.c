@@ -15,28 +15,28 @@ uint8_t read_pin(uint8_t n)
 {
 	if(n==1)
 	{
-		if(DL_GPIO_readPins(Key_PORT,Key_PIN_3_PIN)==0)
+		if(DL_GPIO_readPins(Key_PIN_3_PORT,Key_PIN_3_PIN)==0)
 		{
 			return KEY_PRESSED;
 		}
 	}
 	else if(n==2)
 	{
-		if(DL_GPIO_readPins(Key_PORT,Key_PIN_4_PIN)==0)
+		if(DL_GPIO_readPins(Key_PIN_4_PORT,Key_PIN_4_PIN)==0)
 		{
 			return KEY_PRESSED;
 		}
 	}
 	else if(n==3)
 	{
-		if(DL_GPIO_readPins(Key_PORT,Key_PIN_5_PIN)==0)
+		if(DL_GPIO_readPins(Key_PIN_5_PORT,Key_PIN_5_PIN)==0)
 		{
 			return KEY_PRESSED;
 		}
 	}
 	else if(n==4)
 	{
-		if(DL_GPIO_readPins(Key_PORT,Key_PIN_3_PIN)==0)
+		if(DL_GPIO_readPins(Key_PIN_3_PORT,Key_PIN_3_PIN)==0)
 		{
 			return KEY_PRESSED;
 		}

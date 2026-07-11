@@ -178,7 +178,17 @@ void uart_send_byte(uint8_t ch)
 
 void UART_0_INST_IRQHandler(void)
 {
-	
+	switch(DL_UART_Main_getPendingInterrupt(UART_0_INST))
+	{
+		case DL_UART_MAIN_IIDX_RX:
+		{
+			uint8 ch=DL_UART_Main_receiveData(UART_0_INST);
+		 ring_queue_enqueue(&uart_rx_queue,ch);
+			break;
+		}
+		default:
+            break;
+	}
 	
 }
 

@@ -62,7 +62,7 @@ int main()
 				duty_100hz();
 			}
 			Key_Task_Handle();
-			if ((millis() - lcd_last_ms) >= 100U)
+			if ((millis()-lcd_last_ms)>=100)
 			{
 				lcd_last_ms = millis();
 				LCD_DebugUpdate(car);
