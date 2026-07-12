@@ -1,31 +1,79 @@
-{
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "⚙️ 打开 TI SysConfig",
-            "type": "shell",
-            "command": "D:\\ti\\sysconfig_1.21.1\\sysconfig_gui.bat",
-            "args": [
-                "--compiler", "gcc",
-                "-s", "D:\\ti\\M0_SDK\\mspm0_sdk_2_02_00_05\\.metadata\\product.json",
-                "-o", "${workspaceFolder}",
-                "${workspaceFolder}\\M0.syscfg"
-            ],
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "silent",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Flash (OpenOCD + XDS110)",
-            "type": "shell",
-            "command": "D:/xpack-openocd-0.12.0-7-win32-x64/xpack-openocd-0.12.0-7/bin/openocd.exe",
-            "args": [
-                "-f", "board/ti_mspm0_launchpad.cfg",
-                "-c", "program build/M0.elf verify reset exit"
-            ],
-            "problemMatcher": []
-        }
-    ]
+﻿{
+    "version":  "2.0.0",
+    "tasks":  [
+                  {
+                      "label":  "Open TI SysConfig",
+                      "type":  "shell",
+                      "command":  "C:\\ti\\sysconfig_1.28.0\\sysconfig_gui.bat",
+                      "args":  [
+                                   "--compiler",
+                                   "gcc",
+                                   "-s",
+                                   "C:\\ti\\mspm0_sdk_2_10_00_04\\.metadata\\product.json",
+                                   "-o",
+                                   "${workspaceFolder}",
+                                   "${workspaceFolder}\\M0.syscfg"
+                               ],
+                      "problemMatcher":  [
+
+                                         ],
+                      "presentation":  {
+                                           "reveal":  "silent",
+                                           "panel":  "shared"
+                                       }
+                  },
+                  {
+                      "label":  "Flash (OpenOCD + XDS110)",
+                      "type":  "shell",
+                      "command":  "D:/xpack-openocd-0.12.0-7-win32-x64/xpack-openocd-0.12.0-7/bin/openocd.exe",
+                      "args":  [
+                                   "-f",
+                                   "board/ti_mspm0_launchpad.cfg",
+                                   "-c",
+                                   "program build/M0.elf verify reset exit"
+                               ],
+                      "problemMatcher":  [
+
+                                         ]
+                  },
+                  {
+                      "label":  "Build MSPM0",
+                      "type":  "shell",
+                      "command":  "cmake",
+                      "args":  [
+                                   "--build",
+                                   "--preset",
+                                   "gcc",
+                                   "--parallel"
+                               ],
+                      "options":  {
+                                      "cwd":  "${workspaceFolder}"
+                                  },
+                      "problemMatcher":  [
+                                             "$gcc"
+                                         ],
+                      "group":  {
+                                    "kind":  "build",
+                                    "isDefault":  true
+                                }
+                  },
+                  {
+                      "label":  "Clean MSPM0",
+                      "type":  "shell",
+                      "command":  "cmake",
+                      "args":  [
+                                   "--build",
+                                   "--preset",
+                                   "gcc",
+                                   "--target",
+                                   "clean"
+                               ],
+                      "options":  {
+                                      "cwd":  "${workspaceFolder}"
+                                  },
+                      "problemMatcher":  [
+
+                                         ]
+                  }
+              ]
 }
