@@ -3,6 +3,7 @@
 Car_t car;
 extern volatile uint8 imuflag;
 extern volatile uint8 controlflag;
+extern volatile uint8 vofaflag;
 
 static uint32_t lcd_last_ms;
 
@@ -35,6 +36,7 @@ int main(void)
 {
     SYSCFG_DL_init();
     MotorInit(&car.Motors);
+	  Vofa_Init(car.Motors);
     GraySensorInit(&car.GraySensor_t);
     EncodersInit(car.Motors);
     BeepInit(&car.buzzer);
@@ -55,10 +57,15 @@ int main(void)
             controlflag = 0;
             duty_50hz();
         }
+				if(vofaflag)
+				{
+					vofaflag=0;
+					Vofa_SendJustFloat();
+				}
 
         Key_Task_Handle();
-
-        if ((millis() - lcd_last_ms) >= 100U) {
+				Vofa_Task();
+        if ((millis() - lcd_last_ms) >= 100) {
             lcd_last_ms = millis();
             LCD_DebugUpdate(car);
         }

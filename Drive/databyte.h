@@ -33,6 +33,46 @@ typedef double fp64;                 /* 64 位浮点数 */
 #define FRAME_TAIL2 0xCC                         /* 串口数据帧帧尾字节 2 */
 #define MAX_DATA_LEN 256                         /* 串口数据帧最大有效数据长度 */
 
+
+//vofa定义
+#define VOFA_CHANNEL_COUNT  8
+#define VOFA_FRAME_TAIL_SIZE 4
+#define VOFA_CMD_FRAME_SIZE 11
+
+
+//vofa数据枚举
+typedef enum {
+    VOFA_PID_LEFT  = 'L',//左轮速度环
+    VOFA_PID_RIGHT = 'R',//右轮速度环
+    VOFA_PID_SPEED = 'S',//左右轮速度环
+    VOFA_PID_TURN  = 'T'//转向环
+} VofaPidTarget_t;
+
+typedef enum {
+    VOFA_PARAM_KP = 'P',//kp
+    VOFA_PARAM_KI = 'I',//ki
+    VOFA_PARAM_KD = 'D'//kd
+} VofaPidParam_t;
+//这一组表示如何处理收到的数值
+typedef enum {
+	VOFA_DIRECT   = '1',//不变
+    VOFA_INCREASE = '2',//增加
+    VOFA_DECREASE = '3'//减少
+} VofaOperation_t;
+
+
+
+//vofa数据结构
+typedef struct {
+    float data[VOFA_CHANNEL_COUNT];
+    uint8_t tail[VOFA_FRAME_TAIL_SIZE];
+} VofaJustFloatFrame_t;
+
+typedef struct {
+    uint8_t packet[VOFA_CMD_FRAME_SIZE];
+    volatile uint8_t completion_flag;
+} VofaCommand_t;
+
 /* 编码器数据结构*/
 typedef struct {
     int32_t v_int;                               /* 原始速度值 */
