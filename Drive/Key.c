@@ -5,7 +5,7 @@ extern Car_t car;
 #define KEY_PRESSED				1
 #define KEY_UNPRESSED			0
 
-#define KEY_TICK_MS             10U
+#define KEY_TICK_MS             1U
 #define KEY_SCAN_TICKS          (20U / KEY_TICK_MS)
 #define KEY_TIME_DOUBLE         (200U / KEY_TICK_MS)
 #define KEY_TIME_LONG           (2000U / KEY_TICK_MS)
