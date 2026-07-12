@@ -5,38 +5,40 @@ extern Car_t car;
 #define KEY_PRESSED				1
 #define KEY_UNPRESSED			0
 
-#define KEY_TIME_DOUBLE			200
-#define KEY_TIME_LONG			2000
-#define KEY_TIME_REPEAT			100
+#define KEY_TICK_MS             10U
+#define KEY_SCAN_TICKS          (20U / KEY_TICK_MS)
+#define KEY_TIME_DOUBLE         (200U / KEY_TICK_MS)
+#define KEY_TIME_LONG           (2000U / KEY_TICK_MS)
+#define KEY_TIME_REPEAT         (100U / KEY_TICK_MS)
 
-uint8_t Key_Flag[KEY_COUNT];
+volatile uint8_t Key_Flag[KEY_COUNT];
 
 uint8_t read_pin(uint8_t n)
 {
 	if(n==1)
 	{
-		if(DL_GPIO_readPins(Key_PIN_3_PORT,Key_PIN_3_PIN)==0)
+		if(DL_GPIO_readPins(Key_PORT,Key_PIN_9_PIN)==0)
 		{
 			return KEY_PRESSED;
 		}
 	}
 	else if(n==2)
 	{
-		if(DL_GPIO_readPins(Key_PIN_4_PORT,Key_PIN_4_PIN)==0)
+		if(DL_GPIO_readPins(Key_PORT,Key_PIN_10_PIN)==0)
 		{
 			return KEY_PRESSED;
 		}
 	}
 	else if(n==3)
 	{
-		if(DL_GPIO_readPins(Key_PIN_5_PORT,Key_PIN_5_PIN)==0)
+		if(DL_GPIO_readPins(Key_PORT,Key_PIN_11_PIN)==0)
 		{
 			return KEY_PRESSED;
 		}
 	}
 	else if(n==4)
 	{
-		if(DL_GPIO_readPins(Key_PIN_3_PORT,Key_PIN_3_PIN)==0)
+		if(DL_GPIO_readPins(Key_PORT,Key_PIN_12_PIN)==0)
 		{
 			return KEY_PRESSED;
 		}
@@ -77,7 +79,7 @@ void Key_Tick(void)
 		}
 	}
 	Count++;
-	if(Count>=20)
+	if(Count>=KEY_SCAN_TICKS)
 	{
 		Count=0;
 		for(i=0;i<KEY_COUNT;i++)

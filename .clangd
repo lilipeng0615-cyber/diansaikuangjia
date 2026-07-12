@@ -1,0 +1,17 @@
+CompileFlags:
+  CompilationDatabase: C:/Users/PC/Desktop/3519/build/mspm0-debug
+  Add:
+    - -D__MSPM0G3519__
+    - -DARM_MATH_CM0PLUS
+    - -IC:/Users/PC/Desktop/3519
+    - -IC:/Users/PC/Desktop/3519/Algorithm
+    - -IC:/Users/PC/Desktop/3519/apply
+    - -IC:/Users/PC/Desktop/3519/Drive
+    - -IC:/Users/PC/Desktop/3519/Task
+    - -IC:/ti/mspm0_sdk_2_10_00_04/source
+    - -IC:/ti/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include
+    - -IC:/ti/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/DSP/Include
+    - -mcpu=cortex-m0plus
+    - -march=thumbv6m
+    - -mthumb
+    - -mfloat-abi=soft

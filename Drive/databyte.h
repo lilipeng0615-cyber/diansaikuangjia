@@ -35,9 +35,9 @@ typedef double fp64;                 /* 64 位浮点数 */
 
 /* 编码器数据结构*/
 typedef struct {
-    int v_int;                                   /* 原始速度值 */
-    int t_int;                                   /* 占空比值 */
-    int EncoderCount;                            /* 编码器累计脉冲计数 */
+    int32_t v_int;                               /* 原始速度值 */
+    int32_t t_int;                               /* 占空比值 */
+    volatile int32_t EncoderCount;               /* 编码器累计脉冲计数 */
     float pos;                                   /* 换算后的位置，单位 rad */
     float vel;                                   /* 换算后的速度，单位 rad/s */
     float V;                                     /* 反馈电压或解析得到的电压值 */

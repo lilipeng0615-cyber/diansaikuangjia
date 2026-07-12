@@ -12,13 +12,13 @@ void BeepInit(Buzzer_t **Buzzer)
 void BuzzerDataUpdate(Buzzer_t* Buzzer)
 {
 	if(Buzzer->BuzzerFlag){
-		PWMStart(PWM_Buzzer_INST);
+		PWMStart(PWM_1_INST);
 		Buzzer->BuzzerCount--;
 		if(Buzzer->BuzzerCount == 0)
 			Buzzer->BuzzerFlag = 0;
 	}
 	else
-		PWMStop(PWM_Buzzer_INST);
+		PWMStop(PWM_1_INST);
 }
 
 void BuzzerBee(Buzzer_t* Buzzer)

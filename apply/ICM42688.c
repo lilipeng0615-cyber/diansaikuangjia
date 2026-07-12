@@ -19,8 +19,8 @@
 #define ICM42688_STATIC_ACCEL_MIN        8.80f
 #define ICM42688_STATIC_ACCEL_MAX        10.80f
 
-#define ICM42688_CS_LOW()                DL_GPIO_clearPins(CS_PORT, CS_PIN_6_PIN)
-#define ICM42688_CS_HIGH()               DL_GPIO_setPins(CS_PORT, CS_PIN_6_PIN)
+#define ICM42688_CS_LOW()                DL_GPIO_clearPins(CS_PORT, CS_PIN_2_PIN)
+#define ICM42688_CS_HIGH()               DL_GPIO_setPins(CS_PORT, CS_PIN_2_PIN)
 
 ICM42688_t ICM42688;
 

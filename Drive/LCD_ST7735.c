@@ -5,12 +5,12 @@
 #include "imu_attitude.h"
 #include <stdio.h>
 
-#define LCD_DC_LOW()      DL_GPIO_clearPins(DC_PORT, DC_PIN_11_PIN)
-#define LCD_DC_HIGH()     DL_GPIO_setPins(DC_PORT, DC_PIN_11_PIN)
-#define LCD_RES_LOW()     DL_GPIO_clearPins(RES_PORT, RES_PIN_12_PIN)
-#define LCD_RES_HIGH()    DL_GPIO_setPins(RES_PORT, RES_PIN_12_PIN)
-#define LCD_BL_LOW()      DL_GPIO_clearPins(BL_PORT, BL_PIN_14_PIN)
-#define LCD_BL_HIGH()     DL_GPIO_setPins(BL_PORT, BL_PIN_14_PIN)
+#define LCD_DC_LOW()      DL_GPIO_clearPins(DC_PORT, DC_PIN_4_PIN)
+#define LCD_DC_HIGH()     DL_GPIO_setPins(DC_PORT, DC_PIN_4_PIN)
+#define LCD_RES_LOW()     DL_GPIO_clearPins(RES_PORT, RES_PIN_3_PIN)
+#define LCD_RES_HIGH()    DL_GPIO_setPins(RES_PORT, RES_PIN_3_PIN)
+#define LCD_BL_LOW()      DL_GPIO_clearPins(BL_PORT, BL_PIN_5_PIN)
+#define LCD_BL_HIGH()     DL_GPIO_setPins(BL_PORT, BL_PIN_5_PIN)
 
 static void lcd_write_bus(uint8_t data)
 {

@@ -1,72 +1,38 @@
-# Keil / ARM build outputs
-keil/Objects/
-keil/Listings/
-keil/*.map
-keil/*.htm
-keil/*.build_log.htm
-keil/*.lnp
-keil/*.axf
-keil/*.hex
-keil/*.bin
-keil/*.elf
-keil/*.d
-keil/*.o
-keil/build.log
-keil/build*.log
-
-# Keil user/session files
-keil/*.uvguix.*
-keil/*.uvgui.*
-keil/*.uvgui_*
-keil/*.uvoptx
-keil/JLinkLog.txt
-keil/EventRecorderStub.scvd
-
-# VS Code local logs
-keil/.vscode/*.log
-keil/.vscode/*.lock
-
-# Local executable/test artifacts
-*.exe
-
-# OS/editor noise
-Thumbs.db
-.DS_Store
-
-# Generic C / build outputs
+# CMake and compiler outputs
 build/
 *.d
 *.o
-*.ko
 *.obj
 *.elf
-*.ilk
+*.axf
+*.hex
+*.bin
 *.map
-*.exp
-*.gch
-*.pch
+*.htm
+*.lnp
+*.pdb
 *.lib
 *.a
-*.la
-*.lo
-*.dll
-*.so
-*.so.*
-*.dylib
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-*.dSYM/
-*.su
-*.idb
-*.pdb
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-*.dwo
+
+# Keil local and build files
+keil/Objects/
+keil/Listings/
+keil/*.build_log.htm
+keil/*.uvguix.*
+keil/*.uvgui.*
+keil/*.uvoptx
+keil/*.log
+keil/*.txt
+keil/*.bak
+keil/JLinkLog.txt
+
+# SysConfig local state and local staging files
+.sysconfig_user_data/
+.sysconfig_gui_test_tmp/
+empty/
+
+# Editor and operating-system files
+.vscode/*.log
+.vscode/*.lock
+Thumbs.db
+.DS_Store

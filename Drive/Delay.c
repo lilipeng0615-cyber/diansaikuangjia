@@ -44,12 +44,12 @@ void delay_us(uint32_t x)
 }
 
 
-void Delay_Ms(uint32_t time)  //延时函数  
+void Delay_Ms(uint32_t time)  //寤舵椂鍑芥暟  
 {   
 	delay_ms(time);
 }  
 
-void Delay_Us(uint32_t time)  //延时函数  
+void Delay_Us(uint32_t time)  //寤舵椂鍑芥暟  
 {   
 	delay_us(time);
 }  
@@ -58,19 +58,19 @@ void Delay_Us(uint32_t time)  //延时函数
 void get_systime(systime *sys)
 {
   sys->last_time=sys->current_time;
-  sys->current_time=micros()/1000.0f;//单位ms
+  sys->current_time=micros()/1000.0f;//鍗曚綅ms
   sys->period=sys->current_time-sys->last_time;
-  sys->period_int=(uint16_t)(sys->period+0.5f);//四舍五入
+  sys->period_int=(uint16_t)(sys->period+0.5f);//鍥涜垗浜斿叆
 }
 
 
 
 float get_systime_ms(void)
 {
-  return millis();//单位ms
+  return millis();//鍗曚綅ms
 }
 
 uint32_t get_systick_ms(void)
 {
-  return (uint32_t)(sysTickUptime);//单位ms
+  return (uint32_t)(sysTickUptime);//鍗曚綅ms
 }

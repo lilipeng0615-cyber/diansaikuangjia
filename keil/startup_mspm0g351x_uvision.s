@@ -30,7 +30,7 @@
 ;// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ;//
-;// MSPM0G3507 startup file
+;// MSPM0L1306 startup file
 ;//
 ;//****************************************************************************
 ;//-------- <<< Use Configuration Wizard in Context Menu >>> ------------------
@@ -93,33 +93,33 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
                 DCD     TIMG8_IRQHandler          ;  3:  TIMG8 interrupt handler
                 DCD     UART3_IRQHandler          ;  4:  UART3 interrupt handler
                 DCD     ADC0_IRQHandler           ;  5:  ADC0 interrupt handler
-                DCD     ADC1_IRQHandler           ;  6:  ADC1 interrupt handler
+                DCD     ADC0_IRQHandler           ;  6:  ADC1 interrupt handler
                 DCD     CANFD0_IRQHandler         ;  7:  CANFD0 interrupt handler
                 DCD     DAC0_IRQHandler           ;  8:  DAC0 interrupt handler
-                DCD     0                         ;  9:  Reserved
-                DCD     SPI0_IRQHandler           ; 10:  SPI0 interrupt handler
-                DCD     SPI1_IRQHandler           ; 11:  SPI1 interrupt handler
-                DCD     0                         ; 12:  Reserved
-                DCD     0                         ; 13:  Reserved
-                DCD     UART1_IRQHandler          ; 14:  UART1 interrupt handler
-                DCD     UART2_IRQHandler          ; 15:  UART2 interrupt handler
-                DCD     UART0_IRQHandler          ; 16:  UART0 interrupt handler
-                DCD     TIMG0_IRQHandler          ; 17:  TIMG0 interrupt handler
-                DCD     TIMG6_IRQHandler          ; 18:  TIMG6 interrupt handler
-                DCD     TIMA0_IRQHandler          ; 19:  TIMA0 interrupt handler
-                DCD     TIMA1_IRQHandler          ; 20:  TIMA1 interrupt handler
-                DCD     TIMG7_IRQHandler          ; 21:  TIMG7 interrupt handler
-                DCD     TIMG12_IRQHandler         ; 22:  TIMG12 interrupt handler
-                DCD     0                         ; 23:  Reserved
-                DCD     0                         ; 24:  Reserved
-                DCD     I2C0_IRQHandler           ; 25:  I2C0 interrupt handler
-                DCD     I2C1_IRQHandler           ; 26:  I2C1 interrupt handler
-                DCD     0                         ; 27:  Reserved
-                DCD     0                         ; 28:  Reserved
-                DCD     AES_IRQHandler            ; 29:  AES interrupt handler
-                DCD     0                         ; 30:  Reserved
-                DCD     RTC_IRQHandler            ; 31:  RTC interrupt handler
-                DCD     DMA_IRQHandler            ; 32:  DMA interrupt handler
+                DCD     TIMG9_IRQHandler          ;  9:  TIMG9 interrupt handler
+                DCD     SPI0_IRQHandler           ;  10:  SPI0 interrupt handler
+                DCD     SPI1_IRQHandler           ;  11:  SPI1 interrupt handler
+                DCD     SPI2_IRQHandler           ;  12:  SPI2 interrupt handler
+                DCD     CANFD1_IRQHandler         ;  13:  CANFD1 interrupt handler
+                DCD     UART1_IRQHandler          ;  14:  UART1 interrupt handler
+                DCD     UART4_IRQHandler          ;  15:  UART4 interrupt handler
+                DCD     UART0_IRQHandler          ;  16:  UART0 interrupt handler
+                DCD     TIMG0_IRQHandler          ;  17:  TIMG0 interrupt handler
+                DCD     TIMG6_IRQHandler          ;  18:  TIMG6 interrupt handler
+                DCD     TIMA0_IRQHandler          ;  19:  TIMA0 interrupt handler
+                DCD     TIMA1_IRQHandler          ;  20:  TIMA1 interrupt handler
+                DCD     TIMG7_IRQHandler          ;  21:  TIMG7 interrupt handler
+                DCD     TIMG12_IRQHandler         ;  22:  TIMG12 interrupt handler
+                DCD     TIMG14_IRQHandler         ;  23:  TIMG14 interrupt handler
+                DCD     UART5_IRQHandler          ;  24:  UART5 interrupt handler
+                DCD     I2C0_IRQHandler           ;  25:  I2C0 interrupt handler
+                DCD     I2C1_IRQHandler           ;  26:  I2C1 interrupt handler
+                DCD     I2C2_IRQHandler           ;  27:  I2C2 interrupt handler
+                DCD     UART7_IRQHandler          ;  28:  UART7 interrupt handler
+                DCD     AESADV_IRQHandler         ;  29:  AESADV interrupt handler
+                DCD     UART6_IRQHandler          ;  30:  UART6 interrupt handler
+                DCD     LFSS_IRQHandler           ;  31:  LFSS interrupt handler
+                DCD     DMA_IRQHandler            ;  32:  DMA interrupt handler
 
 __Vectors_End
 
@@ -168,7 +168,7 @@ SysTick_Handler PROC
 
 Default_Handler PROC
                 EXPORT  Default_Handler           [WEAK]
-				EXPORT  GROUP0_IRQHandler         [WEAK]
+                EXPORT  GROUP0_IRQHandler         [WEAK]
                 EXPORT  GROUP1_IRQHandler         [WEAK]
                 EXPORT  TIMG8_IRQHandler          [WEAK]
                 EXPORT  UART3_IRQHandler          [WEAK]
@@ -176,10 +176,13 @@ Default_Handler PROC
                 EXPORT  ADC1_IRQHandler           [WEAK]
                 EXPORT  CANFD0_IRQHandler         [WEAK]
                 EXPORT  DAC0_IRQHandler           [WEAK]
+                EXPORT  TIMG9_IRQHandler          [WEAK]
                 EXPORT  SPI0_IRQHandler           [WEAK]
                 EXPORT  SPI1_IRQHandler           [WEAK]
+                EXPORT  SPI2_IRQHandler           [WEAK]
+                EXPORT  CANFD1_IRQHandler         [WEAK]
                 EXPORT  UART1_IRQHandler          [WEAK]
-                EXPORT  UART2_IRQHandler          [WEAK]
+                EXPORT  UART4_IRQHandler          [WEAK]
                 EXPORT  UART0_IRQHandler          [WEAK]
                 EXPORT  TIMG0_IRQHandler          [WEAK]
                 EXPORT  TIMG6_IRQHandler          [WEAK]
@@ -187,10 +190,15 @@ Default_Handler PROC
                 EXPORT  TIMA1_IRQHandler          [WEAK]
                 EXPORT  TIMG7_IRQHandler          [WEAK]
                 EXPORT  TIMG12_IRQHandler         [WEAK]
+                EXPORT  TIMG14_IRQHandler         [WEAK]
+                EXPORT  UART5_IRQHandler          [WEAK]
                 EXPORT  I2C0_IRQHandler           [WEAK]
                 EXPORT  I2C1_IRQHandler           [WEAK]
-                EXPORT  AES_IRQHandler            [WEAK]
-                EXPORT  RTC_IRQHandler            [WEAK]
+                EXPORT  I2C2_IRQHandler           [WEAK]
+                EXPORT  UART7_IRQHandler          [WEAK]
+                EXPORT  AESADV_IRQHandler         [WEAK]
+                EXPORT  UART6_IRQHandler          [WEAK]
+                EXPORT  LFSS_IRQHandler           [WEAK]
                 EXPORT  DMA_IRQHandler            [WEAK]
 
 GROUP0_IRQHandler
@@ -201,10 +209,13 @@ ADC0_IRQHandler
 ADC1_IRQHandler
 CANFD0_IRQHandler
 DAC0_IRQHandler
+TIMG9_IRQHandler
 SPI0_IRQHandler
 SPI1_IRQHandler
+SPI2_IRQHandler
+CANFD1_IRQHandler
 UART1_IRQHandler
-UART2_IRQHandler
+UART4_IRQHandler
 UART0_IRQHandler
 TIMG0_IRQHandler
 TIMG6_IRQHandler
@@ -212,10 +223,15 @@ TIMA0_IRQHandler
 TIMA1_IRQHandler
 TIMG7_IRQHandler
 TIMG12_IRQHandler
+TIMG14_IRQHandler
+UART5_IRQHandler
 I2C0_IRQHandler
 I2C1_IRQHandler
-AES_IRQHandler
-RTC_IRQHandler
+I2C2_IRQHandler
+UART7_IRQHandler
+AESADV_IRQHandler
+UART6_IRQHandler
+LFSS_IRQHandler
 DMA_IRQHandler
                 B       .
                 ENDP
@@ -227,7 +243,7 @@ DMA_IRQHandler
 
                 IF      :DEF:__MICROLIB
 
-                EXPORT  __initial_sp
+__initial_sp
                 EXPORT  __heap_base
                 EXPORT  __heap_limit
 

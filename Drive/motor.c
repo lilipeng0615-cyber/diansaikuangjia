@@ -2,12 +2,12 @@
 
 void PWMStart(GPTIMER_Regs *gptimer)
 {
-	DL_TimerA_startCounter(gptimer);
+	DL_Timer_startCounter(gptimer);
 }      
 
 void PWMStop(GPTIMER_Regs *gptimer)
 {
-	DL_TimerA_stopCounter(gptimer);
+	DL_Timer_stopCounter(gptimer);
 }  
 
 

@@ -23,17 +23,16 @@ void EncodersInit(Motors_t *Motor)
   Motor->EncoderLeft=&encoderLeftFront;
 	Motor->EncoderRight=&encoderRightFront;
 	
-	NVIC_EnableIRQ(Encoder1_INT_IRQN);
-	NVIC_EnableIRQ(Encoder1_INT_IRQN);
-	
-	
 	EncoderInit(Motor->EncoderLeft);
 	EncoderInit(Motor->EncoderRight);
+	EncoderExtiInit();
 	
 }
 
 void EncoderDataUpdate(Motors_t* Motor)
 {
+	EncoderExtiDataUpdate(Motor);
+
 	Motor->EncoderLeft->v_int=Motor->EncoderLeft->EncoderCount;
 	Motor->EncoderRight->v_int=Motor->EncoderRight->EncoderCount;
 	
@@ -42,7 +41,8 @@ void EncoderDataUpdate(Motors_t* Motor)
 	
 	
 	
-	float temp=(EncoderReadingFrequency/EncoderLines)*2*PI;
+	float temp=(EncoderReadingFrequency*2.0f*PI)/
+		(EncoderLines*ENCODER_QEI_MULTIPLIER);
 	
 	Motor->EncoderLeft->vel=(Motor->EncoderLeft->v_int*temp)*0.2+Motor->EncoderLeft->vel*0.8;
 	Motor->EncoderRight->vel=(Motor->EncoderRight->v_int*temp)*0.2+Motor->EncoderRight->vel*0.8;
