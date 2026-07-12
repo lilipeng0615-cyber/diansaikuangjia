@@ -27,6 +27,7 @@
 #include "Key.h"
 #include "Time.h"
 #include "LCD_ST7735.h"
+#include "vofa.h"
 #include "task.h"
 
 
