@@ -68,12 +68,32 @@ void MotorStop(Motors_t* Motors)
 }
 
 
+//如果使用Drv8701E
+//void MotorDirectionSet(Motors_t* Motors)
+//{
+//	(Motors->MotorLeft->Output>0)?(DL_GPIO_setPins(Motor_PIN_7_PORT,Motor_PIN_7_PIN)):(DL_GPIO_clearPins(Motor_PIN_7_PORT,Motor_PIN_7_PIN));
+//	(Motors->MotorRight->Output>0)?(DL_GPIO_setPins(Motor_PIN_9_PORT,Motor_PIN_9_PIN)):(DL_GPIO_clearPins(Motor_PIN_9_PORT,Motor_PIN_9_PIN));
+//	
+//}
 
+//如果使用L892N
 void MotorDirectionSet(Motors_t* Motors)
 {
-	(Motors->MotorLeft->Output>0)?(DL_GPIO_setPins(Motor_PIN_7_PORT,Motor_PIN_7_PIN)):(DL_GPIO_clearPins(Motor_PIN_7_PORT,Motor_PIN_7_PIN));
-	(Motors->MotorRight->Output>0)?(DL_GPIO_setPins(Motor_PIN_9_PORT,Motor_PIN_9_PIN)):(DL_GPIO_clearPins(Motor_PIN_9_PORT,Motor_PIN_9_PIN));
-	
+    (Motors->MotorLeft->Output > 0) ?
+        DL_GPIO_setPins(Motor_PIN_7_PORT, Motor_PIN_7_PIN) :
+        DL_GPIO_clearPins(Motor_PIN_7_PORT, Motor_PIN_7_PIN);
+
+    (Motors->MotorLeft->Output < 0) ?
+        DL_GPIO_setPins(Motor_PIN_8_PORT, Motor_PIN_8_PIN) :
+        DL_GPIO_clearPins(Motor_PIN_8_PORT, Motor_PIN_8_PIN);
+
+    (Motors->MotorRight->Output > 0) ?
+        DL_GPIO_setPins(Motor_PIN_9_PORT, Motor_PIN_9_PIN) :
+        DL_GPIO_clearPins(Motor_PIN_9_PORT, Motor_PIN_9_PIN);
+
+    (Motors->MotorRight->Output < 0) ?
+        DL_GPIO_setPins(Motor_PIN_10_PORT, Motor_PIN_10_PIN) :
+        DL_GPIO_clearPins(Motor_PIN_10_PORT, Motor_PIN_10_PIN);
 }
 
 void MotorPidCtrl (Motors_t* Motors,fp32 TurnAngleSet,fp32 AverageSpeedSet)

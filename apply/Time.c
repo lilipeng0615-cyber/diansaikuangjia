@@ -24,6 +24,7 @@ void TIMER_0_INST_IRQHandler(void)
 	 {
 		 case DL_TIMERG_IIDX_ZERO:
 		 {
+			  Key_Tick();
 			  controlflag=1;
 			 
 		 }
