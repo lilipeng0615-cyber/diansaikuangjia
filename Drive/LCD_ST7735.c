@@ -93,6 +93,7 @@ void LCD_Address_Set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 
 void LCD_Init(void)
 {
+    DL_GPIO_clearPins(CS2_PORT, CS2_PIN_15_PIN);
     LCD_DC_HIGH();
     LCD_SetBacklight(0U);
 

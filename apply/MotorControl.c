@@ -68,7 +68,7 @@ void MotorStop(Motors_t* Motors)
 }
 
 
-//如果使用Drv8701E
+//如果使用Drv8701E,一般来说都是正向前进，几乎没有反转
 //void MotorDirectionSet(Motors_t* Motors)
 //{
 //	(Motors->MotorLeft->Output>0)?(DL_GPIO_setPins(Motor_PIN_7_PORT,Motor_PIN_7_PIN)):(DL_GPIO_clearPins(Motor_PIN_7_PORT,Motor_PIN_7_PIN));

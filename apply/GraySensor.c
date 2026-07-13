@@ -120,12 +120,12 @@ void GraySensorInit(GraySensor_t** GraySensor)
 
 void SET_SELECTOR(uint8_t pin2, uint8_t pin1, uint8_t pin0)
 {
-	if(pin2) DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_2_PIN);
-	else DL_GPIO_clearPins(GraySensor_PORT ,GraySensor_PIN_2_PIN);
-	if(pin1) DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_1_PIN);
-	else DL_GPIO_clearPins(GraySensor_PORT, GraySensor_PIN_1_PIN);
-	if(pin0) DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_0_PIN);
-	else DL_GPIO_clearPins(GraySensor_PORT, GraySensor_PIN_0_PIN);
+	if(pin2) DL_GPIO_setPins(GraySensor_PIN_2_PORT,GraySensor_PIN_2_PIN);
+	else DL_GPIO_clearPins(GraySensor_PIN_2_PORT ,GraySensor_PIN_2_PIN);
+	if(pin1) DL_GPIO_setPins(GraySensor_PIN_1_PORT,GraySensor_PIN_1_PIN);
+	else DL_GPIO_clearPins(GraySensor_PIN_1_PORT, GraySensor_PIN_1_PIN);
+	if(pin0) DL_GPIO_setPins(GraySensor_PIN_0_PORT,GraySensor_PIN_0_PIN);
+	else DL_GPIO_clearPins(GraySensor_PIN_0_PORT, GraySensor_PIN_0_PIN);
 }
 
 void GraySensorDataUpdate (GraySensor_t* GraySensor)
