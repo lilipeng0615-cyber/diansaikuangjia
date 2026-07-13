@@ -72,11 +72,15 @@ ADC121.adcPin0Config.$name               = "ti_driverlib_gpio_GPIOPinGeneric22";
 const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
 
 GPIO1.$name                         = "Motor";
-GPIO1.associatedPins.create(2);
+GPIO1.associatedPins.create(4);
 GPIO1.associatedPins[0].$name       = "PIN_0";
 GPIO1.associatedPins[0].pin.$assign = "PA28";
 GPIO1.associatedPins[1].$name       = "PIN_1";
 GPIO1.associatedPins[1].pin.$assign = "PA29";
+GPIO1.associatedPins[2].$name       = "PIN_14";
+GPIO1.associatedPins[2].pin.$assign = "PA2";
+GPIO1.associatedPins[3].$name       = "PIN_15";
+GPIO1.associatedPins[3].pin.$assign = "PA3";
 
 GPIO2.$name                         = "CS";
 GPIO2.associatedPins[0].$name       = "PIN_2";

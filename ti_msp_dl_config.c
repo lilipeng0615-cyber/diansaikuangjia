@@ -261,16 +261,24 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 
     DL_GPIO_initDigitalOutput(EncoderSharedBusCS_FLASH_CS_IOMUX);
 
+    DL_GPIO_initDigitalOutput(Motor_PIN_14_IOMUX);
+
+    DL_GPIO_initDigitalOutput(Motor_PIN_15_IOMUX);
+
     DL_GPIO_clearPins(GPIOA, CS_PIN_2_PIN |
 		RES_PIN_3_PIN |
 		DC_PIN_4_PIN |
 		Motor_PIN_0_PIN |
-		Motor_PIN_1_PIN);
+		Motor_PIN_1_PIN |
+		Motor_PIN_14_PIN |
+		Motor_PIN_15_PIN);
     DL_GPIO_enableOutput(GPIOA, CS_PIN_2_PIN |
 		RES_PIN_3_PIN |
 		DC_PIN_4_PIN |
 		Motor_PIN_0_PIN |
-		Motor_PIN_1_PIN);
+		Motor_PIN_1_PIN |
+		Motor_PIN_14_PIN |
+		Motor_PIN_15_PIN);
     DL_GPIO_clearPins(GPIOB, BL_PIN_5_PIN |
 		LED_PIN_13_PIN |
 		GraySensor_PIN_6_PIN |

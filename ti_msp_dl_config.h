@@ -396,6 +396,12 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 /* Defines for FLASH_CS: GPIOB.13 with pinCMx 30 on package pin 37 */
 #define EncoderSharedBusCS_FLASH_CS_PIN                         (DL_GPIO_PIN_13)
 #define EncoderSharedBusCS_FLASH_CS_IOMUX                        (IOMUX_PINCM30)
+/* Defines for PIN_14: GPIOA.2 with pinCMx 7 on package pin 10 */
+#define Motor_PIN_14_PIN                                         (DL_GPIO_PIN_2)
+#define Motor_PIN_14_IOMUX                                        (IOMUX_PINCM7)
+/* Defines for PIN_15: GPIOA.3 with pinCMx 8 on package pin 11 */
+#define Motor_PIN_15_PIN                                         (DL_GPIO_PIN_3)
+#define Motor_PIN_15_IOMUX                                        (IOMUX_PINCM8)
 
 
 
