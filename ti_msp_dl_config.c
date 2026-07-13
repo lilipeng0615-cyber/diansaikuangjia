@@ -189,8 +189,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
         GPIO_SPI_1_IOMUX_SCLK, GPIO_SPI_1_IOMUX_SCLK_FUNC);
     DL_GPIO_initPeripheralOutputFunction(
         GPIO_SPI_1_IOMUX_PICO, GPIO_SPI_1_IOMUX_PICO_FUNC);
-    DL_GPIO_initPeripheralInputFunction(
-        GPIO_SPI_1_IOMUX_POCI, GPIO_SPI_1_IOMUX_POCI_FUNC);
 
     DL_GPIO_initDigitalOutput(CS_PIN_6_IOMUX);
 
@@ -201,6 +199,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initDigitalOutput(RES_PIN_12_IOMUX);
 
     DL_GPIO_initDigitalOutput(BL_PIN_14_IOMUX);
+
+    DL_GPIO_initDigitalOutput(CS2_PIN_15_IOMUX);
 
     DL_GPIO_initDigitalOutput(GraySensor_PIN_0_IOMUX);
 
@@ -238,8 +238,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
-    DL_GPIO_initDigitalOutput(CS2_PIN_15_IOMUX);
-
     DL_GPIO_clearPins(GPIOA, GraySensor_PIN_2_PIN |
 		Motor_PIN_10_PIN);
     DL_GPIO_enableOutput(GPIOA, GraySensor_PIN_2_PIN |
@@ -252,6 +250,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		DC_PIN_11_PIN |
 		RES_PIN_12_PIN |
 		BL_PIN_14_PIN |
+		CS2_PIN_15_PIN |
 		GraySensor_PIN_0_PIN |
 		GraySensor_PIN_1_PIN |
 		Key_PIN_3_PIN |
@@ -259,13 +258,13 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		Key_PIN_5_PIN |
 		Motor_PIN_7_PIN |
 		Motor_PIN_8_PIN |
-		Motor_PIN_9_PIN |
-		CS2_PIN_15_PIN);
+		Motor_PIN_9_PIN);
     DL_GPIO_enableOutput(GPIOB, CS_PIN_6_PIN |
 		LED_PIN_13_PIN |
 		DC_PIN_11_PIN |
 		RES_PIN_12_PIN |
 		BL_PIN_14_PIN |
+		CS2_PIN_15_PIN |
 		GraySensor_PIN_0_PIN |
 		GraySensor_PIN_1_PIN |
 		Key_PIN_3_PIN |
@@ -273,8 +272,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		Key_PIN_5_PIN |
 		Motor_PIN_7_PIN |
 		Motor_PIN_8_PIN |
-		Motor_PIN_9_PIN |
-		CS2_PIN_15_PIN);
+		Motor_PIN_9_PIN);
     DL_GPIO_setUpperPinsPolarity(GPIOB, DL_GPIO_PIN_23_EDGE_RISE);
     DL_GPIO_clearInterruptStatus(GPIOB, Encoder1_A1_PIN);
     DL_GPIO_enableInterrupt(GPIOB, Encoder1_A1_PIN);

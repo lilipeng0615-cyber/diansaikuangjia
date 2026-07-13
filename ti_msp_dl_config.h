@@ -228,10 +228,6 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 #define GPIO_SPI_1_PICO_PIN                                       DL_GPIO_PIN_8
 #define GPIO_SPI_1_IOMUX_PICO                                   (IOMUX_PINCM25)
 #define GPIO_SPI_1_IOMUX_PICO_FUNC                   IOMUX_PINCM25_PF_SPI1_PICO
-#define GPIO_SPI_1_POCI_PORT                                              GPIOA
-#define GPIO_SPI_1_POCI_PIN                                      DL_GPIO_PIN_16
-#define GPIO_SPI_1_IOMUX_POCI                                   (IOMUX_PINCM38)
-#define GPIO_SPI_1_IOMUX_POCI_FUNC                   IOMUX_PINCM38_PF_SPI1_POCI
 /* GPIO configuration for SPI_1 */
 #define GPIO_SPI_1_SCLK_PORT                                              GPIOB
 #define GPIO_SPI_1_SCLK_PIN                                       DL_GPIO_PIN_9
@@ -284,6 +280,12 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 /* Defines for PIN_14: GPIOB.26 with pinCMx 57 on package pin 28 */
 #define BL_PIN_14_PIN                                           (DL_GPIO_PIN_26)
 #define BL_PIN_14_IOMUX                                          (IOMUX_PINCM57)
+/* Port definition for Pin Group CS2 */
+#define CS2_PORT                                                         (GPIOB)
+
+/* Defines for PIN_15: GPIOB.14 with pinCMx 31 on package pin 2 */
+#define CS2_PIN_15_PIN                                          (DL_GPIO_PIN_14)
+#define CS2_PIN_15_IOMUX                                         (IOMUX_PINCM31)
 /* Defines for PIN_0: GPIOB.13 with pinCMx 30 on package pin 1 */
 #define GraySensor_PIN_0_PORT                                            (GPIOB)
 #define GraySensor_PIN_0_PIN                                    (DL_GPIO_PIN_13)
@@ -350,12 +352,6 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 /* Defines for B2: GPIOA.26 with pinCMx 59 on package pin 30 */
 #define Encoder2_B2_PIN                                         (DL_GPIO_PIN_26)
 #define Encoder2_B2_IOMUX                                        (IOMUX_PINCM59)
-/* Port definition for Pin Group CS2 */
-#define CS2_PORT                                                         (GPIOB)
-
-/* Defines for PIN_15: GPIOB.14 with pinCMx 31 on package pin 2 */
-#define CS2_PIN_15_PIN                                          (DL_GPIO_PIN_14)
-#define CS2_PIN_15_IOMUX                                         (IOMUX_PINCM31)
 
 
 

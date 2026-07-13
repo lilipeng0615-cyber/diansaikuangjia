@@ -161,9 +161,9 @@ SPI1.peripheral.$assign  = "SPI0";
 
 SPI2.$name                      = "SPI_1";
 SPI2.frameFormat                = "MOTO3";
+SPI2.direction                  = "PICO";
 SPI2.sclkPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric8";
 SPI2.mosiPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric9";
-SPI2.misoPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric12";
 SPI2.peripheral.sclkPin.$assign = "PB9";
 SPI2.peripheral.mosiPin.$assign = "PB8";
 
@@ -246,7 +246,6 @@ SPI1.peripheral.sclkPin.$suggestSolution     = "PA11";
 SPI1.peripheral.mosiPin.$suggestSolution     = "PA5";
 SPI1.peripheral.misoPin.$suggestSolution     = "PA10";
 SPI2.peripheral.$suggestSolution             = "SPI1";
-SPI2.peripheral.misoPin.$suggestSolution     = "PA16";
 TIMER1.peripheral.$suggestSolution           = "TIMG0";
 TIMER2.peripheral.$suggestSolution           = "TIMA1";
 TIMER3.peripheral.$suggestSolution           = "TIMA0";
