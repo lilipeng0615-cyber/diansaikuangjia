@@ -61,6 +61,8 @@ const mux8       = system.clockTree["HSCLKMUX"];
 mux8.inputSelect = "HSCLKMUX_SYSPLL2X";
 
 ADC121.$name                             = "ADCGraySensor";
+ADC121.peripheral.$assign                = "ADC1";
+ADC121.peripheral.adcPin0.$assign        = "PA15";
 ADC121.adcPin0Config.hideOutputInversion = scripting.forceWrite(false);
 ADC121.adcPin0Config.$name               = "ti_driverlib_gpio_GPIOPinGeneric18";
 
@@ -152,12 +154,15 @@ PWM2.ccp0PinConfig.onlyInternalResistor = scripting.forceWrite(false);
 PWM2.ccp0PinConfig.passedPeripheralType = scripting.forceWrite("Digital");
 PWM2.ccp0PinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric19";
 
-SPI1.$name               = "SPI_0";
-SPI1.frameFormat         = "MOTO3";
-SPI1.sclkPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric14";
-SPI1.mosiPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric15";
-SPI1.misoPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric16";
-SPI1.peripheral.$assign  = "SPI0";
+SPI1.$name                      = "SPI_0";
+SPI1.frameFormat                = "MOTO3";
+SPI1.sclkPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric14";
+SPI1.mosiPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric15";
+SPI1.misoPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric16";
+SPI1.peripheral.$assign         = "SPI0";
+SPI1.peripheral.sclkPin.$assign = "PA12";
+SPI1.peripheral.mosiPin.$assign = "PB17";
+SPI1.peripheral.misoPin.$assign = "PB19";
 
 SPI2.$name                      = "SPI_1";
 SPI2.frameFormat                = "MOTO3";
@@ -235,28 +240,23 @@ UART4.rxPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric7";
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-ADC121.peripheral.$suggestSolution           = "ADC1";
-ADC121.peripheral.adcPin0.$suggestSolution   = "PA15";
 Board.peripheral.$suggestSolution            = "DEBUGSS";
 Board.peripheral.swclkPin.$suggestSolution   = "PA20";
 Board.peripheral.swdioPin.$suggestSolution   = "PA19";
 GPIO1.associatedPins[0].pin.$suggestSolution = "PB13";
 GPIO1.associatedPins[1].pin.$suggestSolution = "PB15";
 GPIO1.associatedPins[2].pin.$suggestSolution = "PA16";
-GPIO2.associatedPins[0].pin.$suggestSolution = "PB17";
-GPIO2.associatedPins[1].pin.$suggestSolution = "PB18";
-GPIO2.associatedPins[2].pin.$suggestSolution = "PB19";
-GPIO4.associatedPins[0].pin.$suggestSolution = "PB20";
-GPIO4.associatedPins[1].pin.$suggestSolution = "PB22";
-GPIO4.associatedPins[2].pin.$suggestSolution = "PA23";
+GPIO2.associatedPins[0].pin.$suggestSolution = "PB18";
+GPIO2.associatedPins[1].pin.$suggestSolution = "PB20";
+GPIO2.associatedPins[2].pin.$suggestSolution = "PB22";
+GPIO4.associatedPins[0].pin.$suggestSolution = "PA23";
+GPIO4.associatedPins[1].pin.$suggestSolution = "PB25";
+GPIO4.associatedPins[2].pin.$suggestSolution = "PB27";
 PWM1.peripheral.$suggestSolution             = "TIMG7";
 PWM1.peripheral.ccp0Pin.$suggestSolution     = "PA17";
 PWM1.peripheral.ccp1Pin.$suggestSolution     = "PA18";
 PWM2.peripheral.$suggestSolution             = "TIMG6";
 PWM2.peripheral.ccp0Pin.$suggestSolution     = "PA29";
-SPI1.peripheral.sclkPin.$suggestSolution     = "PA12";
-SPI1.peripheral.mosiPin.$suggestSolution     = "PA5";
-SPI1.peripheral.misoPin.$suggestSolution     = "PA4";
 SPI2.peripheral.$suggestSolution             = "SPI1";
 TIMER1.peripheral.$suggestSolution           = "TIMG0";
 TIMER2.peripheral.$suggestSolution           = "TIMA1";

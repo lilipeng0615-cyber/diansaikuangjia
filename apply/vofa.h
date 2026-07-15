@@ -11,6 +11,8 @@ void Vofa_Task(void);
 void Vofa_Init(Motors_t *motors);
 void Vofa_SendJustFloat(void);
 void Vofa_SendGrayFireWater(const GraySensor_t *gray_sensor);
+void Vofa_SendEulerFireWater(
+    const IMU_Attitude_t *attitude);
 
 
 #endif

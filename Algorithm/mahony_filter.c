@@ -30,7 +30,15 @@ static void Mahony_RotationMatrixUpdate(Mahony_t *mahony)
 
 void Mahony_Output(Mahony_t *mahony)
 {
-    mahony->pitch = -asinf(mahony->rMat[2][0]);
+    float pitch_sine = -mahony->rMat[2][0];
+
+    if (pitch_sine > 1.0f) {
+        pitch_sine = 1.0f;
+    } else if (pitch_sine < -1.0f) {
+        pitch_sine = -1.0f;
+    }
+
+    mahony->pitch = asinf(pitch_sine);
     mahony->roll = atan2f(mahony->rMat[2][1], mahony->rMat[2][2]);
     mahony->yaw = atan2f(mahony->rMat[1][0], mahony->rMat[0][0]);
 }
@@ -116,6 +124,42 @@ void Mahony_Update(Mahony_t *mahony, Axis3f gyro, Axis3f acc)
     gyro.x += mahony->Kp * ex + mahony->exInt;
     gyro.y += mahony->Kp * ey + mahony->eyInt;
     gyro.z += mahony->Kp * ez + mahony->ezInt;
+
+    q0_last = mahony->q0;
+    q1_last = mahony->q1;
+    q2_last = mahony->q2;
+    q3_last = mahony->q3;
+    half_t = mahony->dt * 0.5f;
+
+    mahony->q0 += (-q1_last * gyro.x - q2_last * gyro.y - q3_last * gyro.z) * half_t;
+    mahony->q1 += ( q0_last * gyro.x + q2_last * gyro.z - q3_last * gyro.y) * half_t;
+    mahony->q2 += ( q0_last * gyro.y - q1_last * gyro.z + q3_last * gyro.x) * half_t;
+    mahony->q3 += ( q0_last * gyro.z + q1_last * gyro.y - q2_last * gyro.x) * half_t;
+
+    inv_norm = inv_sqrt(mahony->q0 * mahony->q0 + mahony->q1 * mahony->q1 +
+                        mahony->q2 * mahony->q2 + mahony->q3 * mahony->q3);
+    if (inv_norm <= 0.0f) {
+        Mahony_Init(mahony, mahony->Kp, mahony->Ki, mahony->dt);
+        return;
+    }
+
+    mahony->q0 *= inv_norm;
+    mahony->q1 *= inv_norm;
+    mahony->q2 *= inv_norm;
+    mahony->q3 *= inv_norm;
+
+    Mahony_RotationMatrixUpdate(mahony);
+    Mahony_Output(mahony);
+}
+
+void Mahony_UpdateGyroOnly(Mahony_t *mahony, Axis3f gyro)
+{
+    float inv_norm;
+    float q0_last;
+    float q1_last;
+    float q2_last;
+    float q3_last;
+    float half_t;
 
     q0_last = mahony->q0;
     q1_last = mahony->q1;

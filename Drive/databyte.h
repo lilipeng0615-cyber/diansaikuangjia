@@ -61,12 +61,14 @@ typedef enum {
 
 
 
-//vofa数据结构
+//JustFloat 发送数据结构
 typedef struct {
     float data[VOFA_CHANNEL_COUNT];
     uint8_t tail[VOFA_FRAME_TAIL_SIZE];
 } VofaJustFloatFrame_t;
 
+
+//VOFA 命令接收结构
 typedef struct {
     uint8_t packet[VOFA_CMD_FRAME_SIZE];
     volatile uint8_t completion_flag;

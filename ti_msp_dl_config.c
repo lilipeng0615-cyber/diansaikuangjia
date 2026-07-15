@@ -239,10 +239,10 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
     DL_GPIO_clearPins(GPIOA, GraySensor_PIN_2_PIN |
-		Motor_PIN_9_PIN |
+		Motor_PIN_7_PIN |
 		Motor_PIN_10_PIN);
     DL_GPIO_enableOutput(GPIOA, GraySensor_PIN_2_PIN |
-		Motor_PIN_9_PIN |
+		Motor_PIN_7_PIN |
 		Motor_PIN_10_PIN);
     DL_GPIO_setUpperPinsPolarity(GPIOA, DL_GPIO_PIN_25_EDGE_RISE);
     DL_GPIO_clearInterruptStatus(GPIOA, Encoder2_A2_PIN);
@@ -258,8 +258,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		Key_PIN_3_PIN |
 		Key_PIN_4_PIN |
 		Key_PIN_5_PIN |
-		Motor_PIN_7_PIN |
-		Motor_PIN_8_PIN);
+		Motor_PIN_8_PIN |
+		Motor_PIN_9_PIN);
     DL_GPIO_enableOutput(GPIOB, CS_PIN_6_PIN |
 		LED_PIN_13_PIN |
 		DC_PIN_11_PIN |
@@ -271,8 +271,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		Key_PIN_3_PIN |
 		Key_PIN_4_PIN |
 		Key_PIN_5_PIN |
-		Motor_PIN_7_PIN |
-		Motor_PIN_8_PIN);
+		Motor_PIN_8_PIN |
+		Motor_PIN_9_PIN);
     DL_GPIO_setUpperPinsPolarity(GPIOB, DL_GPIO_PIN_23_EDGE_RISE);
     DL_GPIO_clearInterruptStatus(GPIOB, Encoder1_A1_PIN);
     DL_GPIO_enableInterrupt(GPIOB, Encoder1_A1_PIN);

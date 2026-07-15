@@ -51,6 +51,74 @@ void Vofa_SendGrayFireWater(const GraySensor_t *gray_sensor)
     }
 }
 
+#define VOFA_RAD_TO_CENTIDEG (5729.5779513f)
+
+static int32_t Vofa_RadiansToCentiDegrees(float radians)
+{
+    float scaled = radians * VOFA_RAD_TO_CENTIDEG;
+
+    return (int32_t)((scaled >= 0.0f) ? (scaled + 0.5f) : (scaled - 0.5f));
+}
+
+static uint32_t Vofa_AbsInt32(int32_t value)
+{
+    return (value < 0) ? (uint32_t)(-value) : (uint32_t)value;
+}
+
+void Vofa_SendEulerFireWater(
+    const IMU_Attitude_t *attitude)
+{
+    char frame[96];
+    int32_t roll_cdeg;
+    int32_t pitch_cdeg;
+    int32_t yaw_cdeg;
+    int32_t yaw_total_cdeg;
+    uint32_t roll_abs;
+    uint32_t pitch_abs;
+    uint32_t yaw_abs;
+    uint32_t yaw_total_abs;
+    int length;
+
+    if (attitude == NULL) {
+        return;
+    }
+
+    roll_cdeg = Vofa_RadiansToCentiDegrees(attitude->Roll);
+    pitch_cdeg = Vofa_RadiansToCentiDegrees(attitude->Pitch);
+    yaw_cdeg = Vofa_RadiansToCentiDegrees(attitude->Yaw);
+    yaw_total_cdeg = Vofa_RadiansToCentiDegrees(attitude->YawTotalAngle);
+    roll_abs = Vofa_AbsInt32(roll_cdeg);
+    pitch_abs = Vofa_AbsInt32(pitch_cdeg);
+    yaw_abs = Vofa_AbsInt32(yaw_cdeg);
+    yaw_total_abs = Vofa_AbsInt32(yaw_total_cdeg);
+
+    /*
+     * Fixed-point formatting avoids depending on embedded printf float
+     * support. VOFA+ channel order is Roll, Pitch, wrapped Yaw and the
+     * accumulated Yaw change. All four values are in degrees.
+     */
+    length = snprintf(
+        frame,
+        sizeof(frame),
+        "imu:%s%lu.%02lu,%s%lu.%02lu,%s%lu.%02lu,%s%lu.%02lu\r\n",
+        (roll_cdeg < 0) ? "-" : "",
+        (unsigned long)(roll_abs / 100U),
+        (unsigned long)(roll_abs % 100U),
+        (pitch_cdeg < 0) ? "-" : "",
+        (unsigned long)(pitch_abs / 100U),
+        (unsigned long)(pitch_abs % 100U),
+        (yaw_cdeg < 0) ? "-" : "",
+        (unsigned long)(yaw_abs / 100U),
+        (unsigned long)(yaw_abs % 100U),
+        (yaw_total_cdeg < 0) ? "-" : "",
+        (unsigned long)(yaw_total_abs / 100U),
+        (unsigned long)(yaw_total_abs % 100U));
+
+    if ((length > 0) && (length < (int)sizeof(frame))) {
+        Vofa_SendData((const uint8_t *)frame, (uint16_t)length);
+    }
+}
+
 static float Vofa_BytesToFloat(const uint8_t data[4])
 {
     float value;
@@ -188,17 +256,12 @@ static uint8_t Vofa_ParseCommand(void)
 
     value = Vofa_BytesToFloat(&vofa_command.packet[5]);
 
-    /*
-     * 排除 NaN、无穷值和异常数据。
-     * 如果不检查，串口干扰可能直接破坏 PID。
-     */
+    /* Reject NaN, infinity and corrupt serial data before changing PID. */
     if (!isfinite(value) || (value < 0.0f) || (value > 1000.0f)) {
         return 0U;
     }
 
-    /*
-     * S 表示左右轮速度环一起修改。
-     */
+    /* S updates both left and right wheel speed loops. */
     if (target == VOFA_PID_SPEED) {
         uint8_t left_ok;
         uint8_t right_ok;
@@ -233,9 +296,7 @@ void Vofa_Task(void)
         return;
     }
 
-    /*
-     * 先清标志，防止处理时中断重复触发。
-     */
+    /* Clear first so the ISR cannot process this packet twice. */
     vofa_command.completion_flag = 0;
 
     Vofa_ParseCommand();
@@ -286,7 +347,7 @@ void Vofa_SendJustFloat(void)
     Vofa_SendData(tail, sizeof(tail));
 }
 
-//串口中断
+// UART interrupt
 void UART_2_INST_IRQHandler(void)
 {
     switch (DL_UART_Main_getPendingInterrupt(UART_2_INST)) {

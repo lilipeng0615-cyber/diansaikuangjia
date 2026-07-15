@@ -587,40 +587,45 @@ void LCD_DebugUpdate(Car_t Car)
 
     LCD_ShowString(0U, 0U,  (const uint8_t *)"Gray:", LCD_WHITE, LCD_BLACK, 16U, 0U);
     LCD_ShowString(0U, 16U, (const uint8_t *)"Yaw :", LCD_WHITE, LCD_BLACK, 16U, 0U);
-    LCD_ShowString(0U, 32U, (const uint8_t *)"Task:", LCD_WHITE, LCD_BLACK, 16U, 0U);
-    LCD_ShowString(0U, 48U, (const uint8_t *)"Dyaw:", LCD_WHITE, LCD_BLACK, 16U, 0U);
-    LCD_ShowString(0U, 64U, (const uint8_t *)"VL  :", LCD_WHITE, LCD_BLACK, 16U, 0U);
-    LCD_ShowString(0U, 80U, (const uint8_t *)"VR  :", LCD_WHITE, LCD_BLACK, 16U, 0U);
-    LCD_ShowString(0U, 96U, (const uint8_t *)"PWM :", LCD_WHITE, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(0U, 32U, (const uint8_t *)"YawT:", LCD_WHITE, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(0U, 48U, (const uint8_t *)"Task:", LCD_WHITE, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(0U, 64U, (const uint8_t *)"Dyaw:", LCD_WHITE, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(0U, 80U, (const uint8_t *)"VL  :", LCD_WHITE, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(0U, 96U, (const uint8_t *)"VR  :", LCD_WHITE, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(0U, 112U, (const uint8_t *)"PWM :", LCD_WHITE, LCD_BLACK, 16U, 0U);
 
     (void)snprintf(line, sizeof(line), "0x%02X          ",
                    (unsigned int)Car.GraySensor_t->BinaryData);
     LCD_ShowString(48U, 0U, (const uint8_t *)line, LCD_CYAN, LCD_BLACK, 16U, 0U);
 
     (void)snprintf(line, sizeof(line), "%+06d       ",
-                   (int)(IMU_Attitude.YawTotalAngle * 57.29578f));
+                   (int)(IMU_Attitude.Yaw * 57.29578f));
     LCD_ShowString(48U, 16U, (const uint8_t *)line, LCD_YELLOW, LCD_BLACK, 16U, 0U);
+
+    (void)snprintf(line, sizeof(line), "%+06d       ",
+                   (int)(IMU_Attitude.YawTotalAngle * 57.29578f));
+    LCD_ShowString(48U, 32U, (const uint8_t *)line, LCD_YELLOW, LCD_BLACK, 16U, 0U);
 
     (void)snprintf(line, sizeof(line), "T%d S%d L%d    ",
                    Car.task->TaskFlag,
                    Car.task->TaskState,
                    Car.task->LapCount);
-    LCD_ShowString(48U, 32U, (const uint8_t *)line, LCD_GREEN, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(48U, 48U, (const uint8_t *)line, LCD_GREEN, LCD_BLACK, 16U, 0U);
 
     (void)snprintf(line, sizeof(line), "%+06d       ",
                    (int)(Car.task->Deltayaw * 57.29578f));
-    LCD_ShowString(48U, 48U, (const uint8_t *)line, LCD_YELLOW, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(48U, 64U, (const uint8_t *)line, LCD_YELLOW, LCD_BLACK, 16U, 0U);
 
     (void)snprintf(line, sizeof(line), "%+06d       ",
                    (int)Car.Motors->EncoderLeft->V);
-    LCD_ShowString(48U, 64U, (const uint8_t *)line, LCD_WHITE, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(48U, 80U, (const uint8_t *)line, LCD_WHITE, LCD_BLACK, 16U, 0U);
 
     (void)snprintf(line, sizeof(line), "%+06d       ",
                    (int)Car.Motors->EncoderRight->V);
-    LCD_ShowString(48U, 80U, (const uint8_t *)line, LCD_WHITE, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(48U, 96U, (const uint8_t *)line, LCD_WHITE, LCD_BLACK, 16U, 0U);
 
     (void)snprintf(line, sizeof(line), "%+04d %+04d ",
                    Car.Motors->MotorLeft->Output,
                    Car.Motors->MotorRight->Output);
-    LCD_ShowString(48U, 96U, (const uint8_t *)line, LCD_MAGENTA, LCD_BLACK, 16U, 0U);
+    LCD_ShowString(48U, 112U, (const uint8_t *)line, LCD_MAGENTA, LCD_BLACK, 16U, 0U);
 }

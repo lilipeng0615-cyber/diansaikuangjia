@@ -11,6 +11,7 @@
 void Mahony_Init(Mahony_t *mahony, fp32 kp, fp32 ki, fp32 dt);
 void Mahony_SetFromAccel(Mahony_t *mahony, Axis3f acc);
 void Mahony_Update(Mahony_t *mahony, Axis3f gyro, Axis3f acc);
+void Mahony_UpdateGyroOnly(Mahony_t *mahony, Axis3f gyro);
 void Mahony_Output(Mahony_t *mahony);
 
 #endif
