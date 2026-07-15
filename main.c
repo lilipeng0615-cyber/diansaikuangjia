@@ -4,8 +4,10 @@ Car_t car;
 //extern volatile uint8 imuflag;
 //extern volatile uint8 controlflag;
 //extern volatile uint8 vofaflag;
-//uint32_t lcd_last_ms = 0;
-//uint32_t vofa_last_ms=0;
+uint32_t lcd_last_ms = 0;
+uint32_t vofa_last_ms=0;
+
+#define GRAY_VOFA_PERIOD_MS (50U)
 
 //void duty_10hz(void)
 //{
@@ -46,27 +48,24 @@ Car_t car;
 int main()
 {
 	SYSCFG_DL_init();
-//	MotorInit(&car.Motors);
-//	Vofa_Init(car.Motors);
-//	GraySensorInit(&car.GraySensor_t);
-//	EncodersInit(car.Motors);
-//	BeepInit(&car.buzzer);
-//	ICM42688_Init();
-//	Task_Init(&car.task);
-//	IMU_Attitude_Init();
+	MotorInit(&car.Motors);
+	Vofa_Init(car.Motors);
+	GraySensorInit(&car.GraySensor_t);
+	EncodersInit(car.Motors);
+	BeepInit(&car.buzzer);
+	ICM42688_Init();
+	Task_Init(&car.task);
+	IMU_Attitude_Init();
 
-	LCD_Init();
+	  LCD_Init();
     LCD_Clear(LCD_BLACK);
 
-    LCD_ShowString(12U, 20U, (const uint8_t *)"LCD OK",
-                   LCD_WHITE, LCD_BLACK, 16U, 0U);
 
-    LCD_ShowString(12U, 45U, (const uint8_t *)"MSPM0G3507",
-                   LCD_GREEN, LCD_BLACK, 16U, 0U);
 //	Time_Init();
 	
     while(1)
 		{
+			uint32_t now_ms = millis();
 			
 //			if(controlflag)
 //			{
@@ -84,14 +83,19 @@ int main()
 //				Vofa_SendJustFloat();
 //			}
 //			
-//			if ((millis()-lcd_last_ms)>=100)
-//			{
-//				lcd_last_ms = millis();
-//				LCD_DebugUpdate(car);
-//			}
+			if ((uint32_t)(now_ms - vofa_last_ms) >= GRAY_VOFA_PERIOD_MS)
+			{
+				vofa_last_ms = now_ms;
+				GraySensorDataUpdate(car.GraySensor_t);
+				Vofa_SendGrayFireWater(car.GraySensor_t);
+			}
+
+			if ((uint32_t)(now_ms - lcd_last_ms) >= 100)
+			{
+				lcd_last_ms = now_ms;
+				LCD_DebugUpdate(car);
+			}
 //			 Key_Task_Handle();
 //			 Vofa_Task();
 		}
 }
-
-

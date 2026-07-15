@@ -1,5 +1,6 @@
 ﻿{
     "cmake.useCMakePresets":  "always",
+    "openocd-tools.path":  "D:/xpack-openocd-0.12.0-7-win32-x64/xpack-openocd-0.12.0-7/bin/openocd.exe",
     "clangd.arguments":  [
                              "--compile-commands-dir=${workspaceFolder}/build",
                              "--query-driver=C:/ti/gcc_arm_none_eabi_9_2_1/bin/arm-none-eabi-gcc.exe"
@@ -56,8 +57,8 @@
                                     },
                                     {
                                         "label":  "$(zap) Flash",
-                                        "task":  "Flash (OpenOCD + XDS110)",
-                                        "tooltip":  "Flash firmware through XDS110",
+                                        "task":  "Flash (OpenOCD + DAPLink)",
+                                        "tooltip":  "Flash firmware through DAPLink",
                                         "alignment":  "left"
                                     }
                                 ]

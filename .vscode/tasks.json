@@ -23,12 +23,12 @@
                                        }
                   },
                   {
-                      "label":  "Flash (OpenOCD + XDS110)",
+                      "label":  "Flash (OpenOCD + DAPLink)",
                       "type":  "shell",
                       "command":  "D:/xpack-openocd-0.12.0-7-win32-x64/xpack-openocd-0.12.0-7/bin/openocd.exe",
                       "args":  [
                                    "-f",
-                                   "board/ti_mspm0_launchpad.cfg",
+                                   "${workspaceFolder}/openocd.cfg",
                                    "-c",
                                    "program build/M0.elf verify reset exit"
                                ],

@@ -7,6 +7,25 @@ void GraySensorInit(GraySensor_t** GraySensor)
 {
 	 static GraySensor_t graysensor;
 		*GraySensor = &graysensor;
+
+		/*
+		 * SysConfig only sets the ADC clock and MEM0 channel in this project.
+		 * Complete the single-conversion setup here so every software trigger
+		 * produces one valid 12-bit sample. ADCGraySensor uses SYSOSC/1
+		 * (32 MHz), therefore 64 ADC clocks give a 2 us sampling window, which
+		 * matches the sensor vendor example.
+		 */
+		DL_ADC12_disableConversions(ADCGraySensor_INST);
+		DL_ADC12_initSingleSample(ADCGraySensor_INST,
+			DL_ADC12_REPEAT_MODE_DISABLED,
+			DL_ADC12_SAMPLING_SOURCE_AUTO,
+			DL_ADC12_TRIG_SRC_SOFTWARE,
+			DL_ADC12_SAMP_CONV_RES_12_BIT,
+			DL_ADC12_SAMP_CONV_DATA_FORMAT_UNSIGNED);
+		DL_ADC12_setSampleTime0(ADCGraySensor_INST, 64U);
+		DL_ADC12_clearInterruptStatus(ADCGraySensor_INST,
+			DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED);
+
 		graysensor.bit0 = 0;
 		graysensor.bit1 = 0;
 		graysensor.bit2 = 0;
@@ -32,24 +51,24 @@ void GraySensorInit(GraySensor_t** GraySensor)
 		graysensor.adc_bits = 4096;
 		
 		// 手动设置校准数据 - 白色值（传感器在白色表面上的ADC读数）
-		graysensor.calibrated_white[0] = 3234;  // bit0白色校准值
-		graysensor.calibrated_white[1] = 3230;  // bit1白色校准值
-		graysensor.calibrated_white[2] = 3246;  // bit2白色校准值
+		graysensor.calibrated_white[0] = 3244;  // bit0白色校准值
+		graysensor.calibrated_white[1] = 3076;  // bit1白色校准值
+		graysensor.calibrated_white[2] = 3150;  // bit2白色校准值
 		graysensor.calibrated_white[3] = 3177;  // bit3白色校准值
-		graysensor.calibrated_white[4] = 3178;  // bit4白色校准值
-		graysensor.calibrated_white[5] = 3163;  // bit5白色校准值
+		graysensor.calibrated_white[4] = 3215;  // bit4白色校准值
+		graysensor.calibrated_white[5] = 2965;  // bit5白色校准值
 		graysensor.calibrated_white[6] = 3198;  // bit6白色校准值
-		graysensor.calibrated_white[7] = 3140;  // bit7白色校准值
+		graysensor.calibrated_white[7] = 3149;  // bit7白色校准值
 		
 		// 手动设置校准数据 - 黑色值（传感器在黑色线上的ADC读数）
-		graysensor.calibrated_black[0] = 2584;   // bit0黑色校准值
-		graysensor.calibrated_black[1] = 1328;   // bit1黑色校准值
-		graysensor.calibrated_black[2] = 2749;   // bit2黑色校准值
-		graysensor.calibrated_black[3] = 2758;   // bit3黑色校准值
-		graysensor.calibrated_black[4] = 1903;   // bit4黑色校准值
-		graysensor.calibrated_black[5] = 3062;   // bit5黑色校准值
-		graysensor.calibrated_black[6] = 2964;   // bit6黑色校准值
-		graysensor.calibrated_black[7] = 2029;   // bit7黑色校准值
+		graysensor.calibrated_black[0] = 1250;   // bit0黑色校准值
+		graysensor.calibrated_black[1] = 490;   // bit1黑色校准值
+		graysensor.calibrated_black[2] = 316;   // bit2黑色校准值
+		graysensor.calibrated_black[3] = 252;   // bit3黑色校准值
+		graysensor.calibrated_black[4] = 937;   // bit4黑色校准值
+		graysensor.calibrated_black[5] = 566;   // bit5黑色校准值
+		graysensor.calibrated_black[6] = 302;   // bit6黑色校准值
+		graysensor.calibrated_black[7] = 974;   // bit7黑色校准值
 		
 		// 计算归一化系数
 		for(int i = 0; i < 8; i++)
@@ -77,46 +96,40 @@ void GraySensorInit(GraySensor_t** GraySensor)
 			}
 		}
 }
-// ADC读取灰度传感器值的宏定义
-#define READ_GRAY_ADC() ({ \
-    unsigned int gAdcResult = 0; \
-    DL_ADC12_enableConversions(ADCGraySensor_INST); \
-    DL_ADC12_startConversion(ADCGraySensor_INST); \
-    while (DL_ADC12_getStatus(ADCGraySensor_INST) != DL_ADC12_STATUS_CONVERSION_IDLE); \
-    DL_ADC12_stopConversion(ADCGraySensor_INST); \
-    DL_ADC12_disableConversions(ADCGraySensor_INST); \
-    gAdcResult = DL_ADC12_getMemResult(ADCGraySensor_INST, ADCGraySensor_ADCMEM_0); \
-    gAdcResult; \
-})
 
-// 将ADC值转换为数字量（0或1）的宏定义
-// 阈值可根据实际情况调整
-#define ADC_THRESHOLD 3950  // ADC阈值，假设12位ADC，中间值为2048
-#define SAMPLE_COUNT 4      // 每个传感器采样次数（总共4次，舍去第1次，保留后3次）
+#define GRAY_SENSOR_CHANNEL_COUNT       8U
+#define GRAY_SENSOR_SAMPLE_COUNT        8U
 
-// 读取一路ADC原始值（舍去第一次采样，保留后三次并取平均）
-#define READ_AND_STORE_ADC() ({ \
-    unsigned int sum = 0; \
-    for(int sample = 0; sample < SAMPLE_COUNT; sample++) { \
-        unsigned int current_sample = READ_GRAY_ADC(); \
-        if(sample > 0) { /* 舍去第一次采样（sample=0），从第二次开始累加 */ \
-            sum += current_sample; \
-        } \
-    } \
-    sum / (SAMPLE_COUNT - 1); /* 除以有效采样次数（3次） */ \
-})
+/*
+ * Poll the raw MEM0 flag instead of comparing the whole ADC status register
+ * with IDLE. The old comparison could succeed before BUSY was asserted,
+ * then stop the conversion and read the reset value (zero) from MEM0.
+ */
+static uint16_t GraySensorReadADC(void)
+{
+	uint16_t adcResult;
 
-// 选择器控制宏定义 - 设置3个引脚的组合来选择传感器
-//#define SET_SELECTOR(pin2, pin1, pin0) do { \
-//    (pin2) ? DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_2_PIN) : DL_GPIO_clearPins(GraySensor_PORT, GraySensor_PIN_2_PIN); \
-//    (pin1) ? DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_1_PIN) : DL_GPIO_clearPins(GraySensor_PORT, GraySensor_PIN_1_PIN); \
-//    (pin0) ? DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_0_PIN) : DL_GPIO_clearPins(GraySensor_PORT, GraySensor_PIN_0_PIN); \
-//} while(0)
+	DL_ADC12_clearInterruptStatus(ADCGraySensor_INST,
+		DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED);
+	DL_ADC12_enableConversions(ADCGraySensor_INST);
+	DL_ADC12_startConversion(ADCGraySensor_INST);
 
-#define DELAY_CYCLES(cycles) do { \
-    volatile uint32_t delay_count = (cycles); \
-    while(delay_count--); \
-} while(0)
+	while ((DL_ADC12_getRawInterruptStatus(ADCGraySensor_INST,
+		DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED) &
+		DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED) == 0U)
+	{
+		/* Wait until MEM0 contains the conversion result. */
+	}
+
+	adcResult = (uint16_t)DL_ADC12_getMemResult(
+		ADCGraySensor_INST, ADCGraySensor_ADCMEM_0);
+	DL_ADC12_stopConversion(ADCGraySensor_INST);
+	DL_ADC12_disableConversions(ADCGraySensor_INST);
+	DL_ADC12_clearInterruptStatus(ADCGraySensor_INST,
+		DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED);
+
+	return adcResult;
+}
 
 void SET_SELECTOR(uint8_t pin2, uint8_t pin1, uint8_t pin0)
 {
@@ -130,39 +143,37 @@ void SET_SELECTOR(uint8_t pin2, uint8_t pin1, uint8_t pin0)
 
 void GraySensorDataUpdate (GraySensor_t* GraySensor)
 {
-	// 第一步：依次读取8个传感器的ADC原始值
-	
-	// 读取bit0的ADC值
-	SET_SELECTOR(0,0,0);
-	GraySensor->adc0_raw = READ_AND_STORE_ADC();
-	
-	// 读取bit1的ADC值
-	SET_SELECTOR(0,0,1);
-	GraySensor->adc1_raw = READ_AND_STORE_ADC();
-	
-	// 读取bit2的ADC值
-	SET_SELECTOR(0,1,0);
-	GraySensor->adc2_raw = READ_AND_STORE_ADC();
-	
-	// 读取bit3的ADC值
-	SET_SELECTOR(0,1,1);
-	GraySensor->adc3_raw = READ_AND_STORE_ADC();
-	
-	// 读取bit4的ADC值
-	SET_SELECTOR(1,0,0);
-	GraySensor->adc4_raw = READ_AND_STORE_ADC();
-	
-	// 读取bit5的ADC值
-	SET_SELECTOR(1,0,1);
-	GraySensor->adc5_raw = READ_AND_STORE_ADC();
-	
-	// 读取bit6的ADC值
-	SET_SELECTOR(1,1,0);
-	GraySensor->adc6_raw = READ_AND_STORE_ADC();
-	
-	// 读取bit7的ADC值
-	SET_SELECTOR(1,1,1);
-	GraySensor->adc7_raw = READ_AND_STORE_ADC();
+	uint16_t *rawDestination[GRAY_SENSOR_CHANNEL_COUNT] = {
+		&GraySensor->adc0_raw, &GraySensor->adc1_raw,
+		&GraySensor->adc2_raw, &GraySensor->adc3_raw,
+		&GraySensor->adc4_raw, &GraySensor->adc5_raw,
+		&GraySensor->adc6_raw, &GraySensor->adc7_raw
+	};
+	uint8_t channel;
+
+	/* Select AD2..AD0 directly: 000 is channel 1 and 111 is channel 8. */
+	for (channel = 0U; channel < GRAY_SENSOR_CHANNEL_COUNT; channel++)
+	{
+		uint32_t sum = 0U;
+		uint8_t sample;
+
+		SET_SELECTOR((uint8_t)((channel >> 2U) & 0x01U),
+			(uint8_t)((channel >> 1U) & 0x01U),
+			(uint8_t)(channel & 0x01U));
+
+		/* Allow the external analog multiplexer output to settle. */
+		delay_us(1U);
+
+		/* The vendor example averages eight samples for every channel. */
+		for (sample = 0U; sample < GRAY_SENSOR_SAMPLE_COUNT; sample++)
+		{
+			sum += GraySensorReadADC();
+		}
+
+		*rawDestination[channel] =
+			(uint16_t)(sum / GRAY_SENSOR_SAMPLE_COUNT);
+	}
+
 	SET_SELECTOR(0,0,0);
 	
 	// 第二步：使用归一化系数处理ADC原始值并与阈值比较

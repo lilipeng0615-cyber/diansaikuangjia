@@ -24,15 +24,15 @@ void TIMER_0_INST_IRQHandler(void)
 	 {
 		 case DL_TIMERG_IIDX_ZERO:
 		 {
-			  Key_Tick();
+
 			  controlflag=1;
-			 
+
 		 }
 		 break;
 		 default:
 			 break;
 	 }
-	
+
 }
 
 //20ms
@@ -48,7 +48,7 @@ void TIMER_1_INST_IRQHandler(void)
 		 default:
 			 break;
 	}
-	
+
 }
 
 //50ms

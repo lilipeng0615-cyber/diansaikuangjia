@@ -8,7 +8,7 @@ static Motors_t *vofa_motors;
 
 void Vofa_SendByte(uint8_t data)
 {
-    DL_UART_Main_transmitDataBlocking(UART_1_INST, data);
+    DL_UART_Main_transmitDataBlocking(UART_2_INST, data);
 }
 
 void Vofa_SendData(const uint8_t *data, uint16_t length)
@@ -17,6 +17,37 @@ void Vofa_SendData(const uint8_t *data, uint16_t length)
         Vofa_SendByte(*data);
         data++;
         length--;
+    }
+}
+
+void Vofa_SendGrayFireWater(const GraySensor_t *gray_sensor)
+{
+    char frame[64];
+    int length;
+
+    if (gray_sensor == NULL) {
+        return;
+    }
+
+    /*
+     * VOFA+ FireWater: optional text prefix, comma-separated ASCII values,
+     * and a mandatory newline. The ADC readings remain decimal integers.
+     */
+    length = snprintf(
+        frame,
+        sizeof(frame),
+        "gray:%u,%u,%u,%u,%u,%u,%u,%u\r\n",
+        (unsigned int)gray_sensor->adc0_raw,
+        (unsigned int)gray_sensor->adc1_raw,
+        (unsigned int)gray_sensor->adc2_raw,
+        (unsigned int)gray_sensor->adc3_raw,
+        (unsigned int)gray_sensor->adc4_raw,
+        (unsigned int)gray_sensor->adc5_raw,
+        (unsigned int)gray_sensor->adc6_raw,
+        (unsigned int)gray_sensor->adc7_raw);
+
+    if ((length > 0) && (length < (int)sizeof(frame))) {
+        Vofa_SendData((const uint8_t *)frame, (uint16_t)length);
     }
 }
 
@@ -222,8 +253,8 @@ void Vofa_Init(Motors_t *motors)
 
     memset(&vofa_command, 0, sizeof(vofa_command));
 
-    NVIC_ClearPendingIRQ(UART_1_INST_INT_IRQN);
-    NVIC_EnableIRQ(UART_1_INST_INT_IRQN);
+    NVIC_ClearPendingIRQ(UART_2_INST_INT_IRQN);
+    NVIC_EnableIRQ(UART_2_INST_INT_IRQN);
 }
 
 void Vofa_SendJustFloat(void)
@@ -256,14 +287,14 @@ void Vofa_SendJustFloat(void)
 }
 
 //´®¿ÚÖÐ¶Ï
-void UART_1_INST_IRQHandler(void)
+void UART_2_INST_IRQHandler(void)
 {
-    switch (DL_UART_Main_getPendingInterrupt(UART_1_INST)) {
+    switch (DL_UART_Main_getPendingInterrupt(UART_2_INST)) {
         case DL_UART_MAIN_IIDX_RX:
         {
             uint8_t byte;
 
-            byte = (uint8_t)DL_UART_Main_receiveData(UART_1_INST);
+            byte = (uint8_t)DL_UART_Main_receiveData(UART_2_INST);
             Vofa_UartReceiveByte(byte);
             break;
         }
