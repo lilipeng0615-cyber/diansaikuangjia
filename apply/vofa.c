@@ -1,4 +1,8 @@
 #include "vofa.h"
+#include "Delay.h"
+#include "pid.h"
+#include "ti_msp_dl_config.h"
+#include <string.h>
 
 
 VofaCommand_t vofa_command;

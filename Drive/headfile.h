@@ -1,6 +1,7 @@
 #ifndef  __HEADFILE
 #define  __HEADFILE
 
+// IWYU pragma: begin_exports
 #include "ti_msp_dl_config.h"
 #include "databyte.h"
 #include "LED.h"
@@ -30,5 +31,6 @@
 #include "task.h"
 #include "vofa.h"
 #include "app_config.h"
+// IWYU pragma: end_exports
 
 #endif

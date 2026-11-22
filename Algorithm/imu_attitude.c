@@ -1,4 +1,7 @@
 #include "imu_attitude.h"
+#include "ICM42688.h"
+#include "mahony_filter.h"
+#include <string.h>
 
 
 

@@ -4,27 +4,13 @@ build/
 *.o
 *.obj
 *.elf
-*.axf
 *.hex
 *.bin
 *.map
 *.htm
-*.lnp
 *.pdb
 *.lib
 *.a
-
-# Keil local and build files
-keil/Objects/
-keil/Listings/
-keil/*.build_log.htm
-keil/*.uvguix.*
-keil/*.uvgui.*
-keil/*.uvoptx
-keil/*.log
-keil/*.txt
-keil/*.bak
-keil/JLinkLog.txt
 
 # SysConfig local state and local staging files
 .sysconfig_user_data/

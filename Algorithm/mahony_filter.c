@@ -1,4 +1,6 @@
 #include "mahony_filter.h"
+#include <math.h>
+#include <string.h>
 
 static float inv_sqrt(float x)
 {

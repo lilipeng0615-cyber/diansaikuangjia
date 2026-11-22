@@ -1,4 +1,5 @@
 #include "motor.h"
+#include "ti_msp_dl_config.h"
 
 void PWMStart(GPTIMER_Regs *gptimer)
 {

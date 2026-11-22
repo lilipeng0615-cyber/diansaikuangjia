@@ -1,4 +1,9 @@
 #include "ICM42688.h"
+#include "Delay.h"
+#include "spi.h"
+#include "ti_msp_dl_config.h"
+#include <math.h>
+#include <string.h>
 
 
 #define ICM42688_REG_DEVICE_CONFIG       0x11U

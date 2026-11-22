@@ -8,7 +8,8 @@
       "binaryDir": "${sourceDir}/build/mspm0-debug",
       "toolchainFile": "${sourceDir}/cmake/mspm0g3519-tiarmclang.cmake",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       }
     }
   ],

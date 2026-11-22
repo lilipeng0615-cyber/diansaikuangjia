@@ -1,4 +1,5 @@
 #include "spi.h"
+#include "ti_msp_dl_config.h"
 
 uint8_t spi0_transfer_byte(uint8_t data)
 {

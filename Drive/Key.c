@@ -1,4 +1,12 @@
 #include "Key.h"
+#include "Beep.h"
+#include "GraySensor.h"
+#include "LCD_ST7735.h"
+#include "MotorControl.h"
+#include "app_config.h"
+#include "databyte.h"
+#include "ti_msp_dl_config.h"
+#include <stddef.h>
 
 extern Car_t car;
 

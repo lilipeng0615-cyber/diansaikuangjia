@@ -1,4 +1,9 @@
 #include "MotorControl.h"
+#include "app_config.h"
+#include "motor.h"
+#include "pid.h"
+#include "ti_msp_dl_config.h"
+#include <stddef.h>
 
 
 fp32 BrushMotor_PID[3] = {BrushMotor_PID_KP , BrushMotor_PID_KI	,	BrushMotor_PID_KD	};

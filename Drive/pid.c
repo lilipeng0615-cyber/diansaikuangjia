@@ -1,4 +1,5 @@
 #include "pid.h"
+#include <stddef.h>
 
 /**
  * @brief 限幅宏函数，将输入值限制在 [-max, max] 区间内

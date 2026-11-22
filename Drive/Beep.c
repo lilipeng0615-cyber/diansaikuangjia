@@ -1,5 +1,7 @@
 #include "Beep.h"
-
+#include "motor.h"
+#include "ti_msp_dl_config.h"
+#include <stddef.h>
 
 void BeepInit(Buzzer_t **Buzzer)
 {

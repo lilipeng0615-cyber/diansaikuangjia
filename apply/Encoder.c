@@ -1,4 +1,6 @@
 #include "Encoder.h"
+#include "EncoderExti.h"
+#include "app_config.h"
 
 void EncoderInit(Encoder_t *Encoder)
 {

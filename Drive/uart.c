@@ -1,4 +1,6 @@
 #include "uart.h"
+#include "ti_msp_dl_config.h"
+#include <string.h>
 
 static RingQueue_t uart_rx_queue;
 static FrameParse_t parse;

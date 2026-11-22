@@ -1,4 +1,11 @@
 #include "GraySensor.h"
+#include "Beep.h"
+#include "Delay.h"
+#include "Key.h"
+#include "LCD_ST7735.h"
+#include "app_config.h"
+#include "ti_msp_dl_config.h"
+#include <stddef.h>
 
 void GraySensor_RecalcNorm(GraySensor_t* GraySensor)
 {
@@ -110,13 +117,7 @@ void GraySensorInit(GraySensor_t** GraySensor)
     sum / (SAMPLE_COUNT - 1); /* 除以有效采样次数（3次） */ \
 })
 
-// 选择器控制宏定义 - 设置3个引脚的组合来选择传感器
-//#define SET_SELECTOR(pin2, pin1, pin0) do { \
-//    (pin2) ? DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_2_PIN) : DL_GPIO_clearPins(GraySensor_PORT, GraySensor_PIN_2_PIN); \
-//    (pin1) ? DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_1_PIN) : DL_GPIO_clearPins(GraySensor_PORT, GraySensor_PIN_1_PIN); \
-//    (pin0) ? DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_0_PIN) : DL_GPIO_clearPins(GraySensor_PORT, GraySensor_PIN_0_PIN); \
-//} while(0)
-
+// 设置三个选择引脚，切换到对应的灰度传感器通道。
 void SET_SELECTOR(uint8_t pin2, uint8_t pin1, uint8_t pin0)
 {
 	if(pin2) DL_GPIO_setPins(GraySensor_PORT,GraySensor_PIN_8_PIN);

@@ -15,6 +15,9 @@
  */
 #include "QuaternionEKF.h"
 
+#include <math.h>
+#include <string.h>
+
 QEKF_INS_t QEKF_INS;
 
 const float IMU_QuaternionEKF_F[36] = {1, 0, 0, 0, 0, 0,

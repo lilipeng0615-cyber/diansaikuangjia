@@ -1,9 +1,6 @@
 #include "headfile.h"
 
 Car_t car;
-extern volatile uint8 imuflag;
-extern volatile uint8 controlflag;
-extern volatile uint8 vofaflag;
 
 static uint32_t lcd_last_ms;
 

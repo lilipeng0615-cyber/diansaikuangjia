@@ -4,6 +4,13 @@ project(mspm0g3519_firmware LANGUAGES C)
 
 option(USE_IMU_QEKF "Build optional Kalman filter and QuaternionEKF modules" OFF)
 
+find_path(MSPM0_SDK_ROOT
+    NAMES source/ti/devices/msp/msp.h
+    HINTS ENV MSPM0_SDK_ROOT
+    PATHS "C:/ti/mspm0_sdk_2_10_00_04"
+    REQUIRED
+)
+
 set(FIRMWARE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/empty.c
     ${CMAKE_CURRENT_SOURCE_DIR}/ti_msp_dl_config.c
@@ -35,8 +42,7 @@ if(USE_IMU_QEKF)
     )
 endif()
 
-# The TI/Keil projects supply startup code and final linker settings. This
-# target compiles all application sources for CMake Tools and IntelliSense.
+# Compile the application sources for CMake Tools and IntelliSense.
 add_library(firmware_objects OBJECT ${FIRMWARE_SOURCES})
 
 target_include_directories(firmware_objects PRIVATE
@@ -45,9 +51,9 @@ target_include_directories(firmware_objects PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/apply
     ${CMAKE_CURRENT_SOURCE_DIR}/Drive
     ${CMAKE_CURRENT_SOURCE_DIR}/Task
-    C:/ti/mspm0_sdk_2_10_00_04/source
-    C:/ti/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include
-    C:/ti/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/DSP/Include
+    "${MSPM0_SDK_ROOT}/source"
+    "${MSPM0_SDK_ROOT}/source/third_party/CMSIS/Core/Include"
+    "${MSPM0_SDK_ROOT}/source/third_party/CMSIS/DSP/Include"
 )
 
 target_compile_definitions(firmware_objects PRIVATE
@@ -57,7 +63,6 @@ target_compile_definitions(firmware_objects PRIVATE
 
 target_compile_options(firmware_objects PRIVATE
     -mcpu=cortex-m0plus
-    -march=thumbv6m
     -mthumb
     -mfloat-abi=soft
     -gdwarf-3

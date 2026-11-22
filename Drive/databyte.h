@@ -1,7 +1,6 @@
 #ifndef __DATABYTE_H
 #define __DATABYTE_H
 
-#include "ti_msp_dl_config.h"
 #include <stdint.h>
 
 /* 基础整数类型别名 */

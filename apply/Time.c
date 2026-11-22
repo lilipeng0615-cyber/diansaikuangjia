@@ -1,8 +1,9 @@
 #include "Time.h"
+#include "ti_msp_dl_config.h"
 
-volatile uint8 imuflag=0;
-volatile uint8 controlflag=0;
-volatile uint8 vofaflag=0;
+volatile uint8_t imuflag = 0;
+volatile uint8_t controlflag = 0;
+volatile uint8_t vofaflag = 0;
 
 void Time_Init(void)
 {

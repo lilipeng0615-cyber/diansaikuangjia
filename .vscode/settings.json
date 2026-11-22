@@ -2,9 +2,7 @@
   "cmake.sourceDirectory": "${workspaceFolder}",
   "cmake.useCMakePresets": "alwaysConfigure",
   "cmake.configureOnOpen": true,
-  "clangd.path": "D:\\LLVM\\bin\\clangd.exe",
   "clangd.arguments": [
-    "--compile-commands-dir=C:/Users/PC/Desktop/3519/build/mspm0-debug",
     "--query-driver=C:/ti/ti_cgt_arm_llvm_4.0.2.LTS/bin/tiarmclang.exe"
   ],
   "C_Cpp.intelliSenseEngine": "disabled",

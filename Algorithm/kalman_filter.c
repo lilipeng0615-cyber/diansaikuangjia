@@ -128,6 +128,17 @@
 
 #include "kalman_filter.h"
 
+#include <stdlib.h>
+#include <string.h>
+
+#ifndef user_malloc
+#ifdef _CMSIS_OS_H
+#define user_malloc pvPortMalloc
+#else
+#define user_malloc malloc
+#endif
+#endif
+
 uint16_t sizeof_float, sizeof_double;
 
 static void H_K_R_Adjustment(KalmanFilter_t *kf);

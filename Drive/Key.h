@@ -1,8 +1,8 @@
 #ifndef  __KEY_H
 #define  __KEY_H
 
-#include "databyte.h"
-#include "headfile.h"
+#include <stdint.h>
+
 #define KEY_COUNT       4
 
 #define KEY_FLAG_HOLD   0x01U

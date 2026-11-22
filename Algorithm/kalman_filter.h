@@ -13,20 +13,8 @@
 #ifndef __KALMAN_FILTER_H
 #define __KALMAN_FILTER_H
 
-
-#include "arm_math.h"
-
-#include "math.h"
-#include "stdint.h"
-#include "stdlib.h"
-
-#ifndef user_malloc
-#ifdef _CMSIS_OS_H
-#define user_malloc pvPortMalloc
-#else
-#define user_malloc malloc
-#endif
-#endif
+#include <stdint.h>
+#include "dsp/matrix_functions.h"
 
 #define mat arm_matrix_instance_f32
 #define Matrix_Init arm_mat_init_f32

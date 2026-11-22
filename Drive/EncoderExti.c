@@ -1,4 +1,6 @@
 #include "EncoderExti.h"
+#include "ti_msp_dl_config.h"
+#include <stddef.h>
 
 static uint16_t s_leftPrevious;
 static uint16_t s_rightPrevious;

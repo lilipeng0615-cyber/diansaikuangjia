@@ -1,4 +1,14 @@
 #include "task.h"
+#include "Beep.h"
+#include "Encoder.h"
+#include "GraySensor.h"
+#include "LED.h"
+#include "MotorControl.h"
+#include "app_config.h"
+#include "imu_attitude.h"
+#include "pid.h"
+#include "ti_msp_dl_config.h"
+#include <math.h>
 
 /* Return ref + 2*k*PI closest to current_yaw (preserves multi-lap continuity). */
 static float NearestSameYaw(float ref_yaw, float current_yaw)

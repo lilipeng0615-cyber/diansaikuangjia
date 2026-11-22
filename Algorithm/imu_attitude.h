@@ -2,7 +2,7 @@
 #define __IMU_ATTITUDE_H
 
 #include "databyte.h"
-#include "mahony_filter.h"
+
 
 extern IMU_Attitude_t IMU_Attitude;
 

@@ -1,4 +1,5 @@
 #include "LCD_ST7735.h"
+#include "ti_msp_dl_config.h"
 #include "Delay.h"
 #include "spi.h"
 #include "lcdfont.h"
